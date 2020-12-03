@@ -10,7 +10,8 @@ set noswapfile
 colorscheme purple_theme
 " colorscheme onehalfdark     " My theme of the moment
 
-set number      " adds line numbers on the left.
+set number
+set relativenumber      " adds line numbers on the left.
 set ruler       " adds line and column number bottom right.
 set cursorline  " highlights the current line.
 syntax on       " Allows text keyword highlighting.
@@ -67,9 +68,11 @@ set splitbelow
 
 
 " SETTING UP THE STATUS LINE
-hi DiffAdd ctermbg=green ctermfg=black
+hi DiffAdd ctermbg=176 ctermfg=black
 hi DiffChange ctermbg=yellow ctermfg=black
-hi DiffDelete ctermbg=darkblue ctermfg=white
+hi DiffDelete ctermbg=darkblue ctermfg=black
+" hi Cursor ctermbg=176 ctermfg=black
+hi File ctermbg=240 ctermfg=176
 set laststatus=2
 
 set statusline=
@@ -77,20 +80,79 @@ set statusline+=%#DiffAdd#%{(mode()=='n')?'\ \ NORMAL\ ':''}
 set statusline+=%#DIffChange#%{(mode()=='i')?'\ \ INSERT\ ':''}
 set statusline+=%#DiffDelete#%{(mode()=='r')?'\ \ RPLACE\ ':''}
 set statusline+=%#Cursor#%{(mode()=='v')?'\ \ VISUAL\ ':''}
-set statusline+=\ %n\           " buffer number
+"set statusline+=\ %n\           " buffer number
+
+
+set statusline+=%#Visual#               " colour
+set statusline+=%{StatuslineGit()}
+
 set statusline+=%#Visual#       " colour
 set statusline+=%{&paste?'\ PASTE\ ':''}
 set statusline+=%{&spell?'\ SPELL\ ':''}
-set statusline+=%#CursorIM#     " colour
-set statusline+=%R                        " readonly flag
-set statusline+=%M                        " modified [+] flag
-set statusline+=%#Cursor#               " colour
-set statusline+=%#CursorLine#     " colour
-set statusline+=\ %t\                   " short file name
+
+set statusline+=%#Visual#               " colour
+set statusline+=>\ %f\ 
+
+" Right
+set statusline+=%#CursorLine#   " colour
 set statusline+=%=                          " right align
 set statusline+=%#CursorLine#   " colour
-set statusline+=\ %Y\                   " file type
-set statusline+=%#CursorIM#     " colour
-set statusline+=\ %3l:%-2c\         " line + column
+
+"set statusline+=%#TrailingSpace#
+set statusline+=%#Cusor#%{StatuslineTrailingSpaceWarning()}
+"set statusline+=%*
+
+set statusline+=%#CursorLine#%r
+"set statusline+=%r                        " readonly flag
+set statusline+=%#Purple#%m                         " modified [+] flag
+
+" Line Type
+set statusline+=%#Purple#%y\ 
+
+set statusline+=%#Visual#     " colour
+set statusline+=%3l:%-2c\          " line + column
 set statusline+=%#Cursor#       " colour
 set statusline+=\ %3p%%\                " percentage
+
+
+"recalculate the trailing whitespace warning when idle, and after saving
+autocmd FileAppendPost,cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning
+
+"return '[\s]' if trailing white space is detected
+"return '' otherwise
+function! StatuslineTrailingSpaceWarning()
+    if !exists("b:statusline_trailing_space_warning")
+
+        if !&modifiable
+            let b:statusline_trailing_space_warning = ''
+            return b:statusline_trailing_space_warning
+        endif
+
+        if search('\s\+$', 'nw') != 0
+            let b:statusline_trailing_space_warning = '[\s]'
+        else
+            let b:statusline_trailing_space_warning = ''
+        endif
+    endif
+    return b:statusline_trailing_space_warning
+endfunction
+
+function! GitBranch()
+  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+endfunction
+
+function! StatuslineGit()
+  let l:branchname = GitBranch()
+  return strlen(l:branchname) > 0?'  git@'.l:branchname.' ':''
+endfunction
+
+
+" coding style checker
+imap <C-j> <c-o>:pyf /Users/mathieu.rivier/Documents/Projects/CodingSetUp/files/vim/clang-format.py<cr>
+imap <C-k> <c-o>:call FormatFile()<cr>
+map <C-j> <c-o>:pyf /Users/mathieu.rivier/Documents/Projects/CodingSetUp/files/vim/clang-format.py<cr>
+map <C-k> <c-o>:call FormatFile()<cr>
+function FormatFile()
+   let l:lines="all"
+   pyf /Users/mathieu.rivier/Documents/Projects/CodingSetUp/files/vim/clang-format.py
+endfunction

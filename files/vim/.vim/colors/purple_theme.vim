@@ -1,17 +1,18 @@
-" ==============================================================================
-"   Name:        One Half Dark
-"   Author:      Son A. Pham <sp@sonpham.me>
-"   Url:         https://github.com/sonph/onehalf
+" =============================================================================
+"   Name:        purple_theme
+"   Author:      Mathieu Rivier
 "   License:     The MIT License (MIT)
 "
-"   A dark vim color scheme based on Atom's One. See github.com/sonph/onehalf
-"   for installation instructions, a light color scheme, versions for other
-"   editors/terminals, and a matching theme for vim-airline.
-" ==============================================================================
+"   A dark vim color scheme based on one half dark.
+" =============================================================================
 
 set background=dark
 highlight clear
 syntax reset
+
+" Turn on function highlighting
+syn match dFunction "\zs\(\k\w*\)*\s*\ze("
+highlight def link dFunction Function
 
 let g:colors_name="purple_theme"
 let colors_name="purple_theme"
@@ -20,7 +21,7 @@ let colors_name="purple_theme"
 let s:black       = { "gui": "#282c34", "cterm": "236" }
 let s:red         = { "gui": "#e06c75", "cterm": "168" }
 let s:green       = { "gui": "#98c379", "cterm": "114" }
-let s:yellow      = { "gui": "#e5c07b", "cterm": "180" }
+let s:yellow      = { "gui": "#e5c07b", "cterm": "215" }
 let s:blue        = { "gui": "#61afef", "cterm": "75"  }
 let s:purple      = { "gui": "#A95AA5", "cterm": "176" }
 let s:cyan        = { "gui": "#56b6c2", "cterm": "73"  }
@@ -124,31 +125,31 @@ call s:h("WildMenu", s:fg, "", "")
 call s:h("Whitespace", s:non_text, "", "")
 call s:h("NonText", s:non_text, "", "")
 call s:h("Comment", s:comment_fg, "", "")
-call s:h("Constant", s:cyan, "", "")
+call s:h("Constant", s:yellow, "", "")
 call s:h("String", s:green, "", "")
 call s:h("Character", s:green, "", "")
-call s:h("Number", s:purple, "", "")
-call s:h("Boolean", s:purple, "", "")
-call s:h("Float", s:purple, "", "")
+call s:h("Number", s:yellow, "", "")
+call s:h("Boolean", s:yellow, "", "")
+call s:h("Float", s:yellow, "", "")
 
 call s:h("Identifier", s:red, "", "")
 call s:h("Function", s:blue, "", "")
-call s:h("Statement", s:red, "", "")
+call s:h("Statement", s:purple, "", "")
 
-call s:h("Conditional", s:yellow, "", "")
+call s:h("Conditional", s:purple, "", "")
 call s:h("Repeat", s:purple, "", "")
 call s:h("Label", s:purple, "", "")
-call s:h("Operator", s:red, "", "")
-call s:h("Keyword", s:red, "", "")
+call s:h("Operator", s:purple, "", "")
+call s:h("Keyword", s:cyan, "", "")
 call s:h("Exception", s:purple, "", "")
 
 call s:h("PreProc", s:yellow, "", "")
-call s:h("Include", s:blue, "", "")
+call s:h("Include", s:purple, "", "")
 call s:h("Define", s:purple, "", "")
 call s:h("Macro", s:yellow, "", "")
 call s:h("PreCondit", s:purple, "", "")
 
-call s:h("Type", s:purple, "", "")
+call s:h("Type", s:cyan, "", "")
 call s:h("StorageClass", s:yellow, "", "")
 call s:h("Structure", s:purple, "", "")
 call s:h("Typedef", s:blue, "", "")
@@ -162,7 +163,7 @@ call s:h("Debug", s:fg, "", "")
 call s:h("Underlined", s:fg, "", "")
 call s:h("Ignore", s:fg, "", "")
 call s:h("Error", s:red, s:gutter_bg, "")
-call s:h("Todo", s:purple, "", "")
+call s:h("Todo", s:white, "", "")
 " }
 
 

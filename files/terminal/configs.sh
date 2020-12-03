@@ -66,5 +66,17 @@ source $CUSTOM/prompt.sh
 source $VM/vm_load.sh
 alias vm_ware=$VM/vm_ware.sh
 
+# test 42sh
+alias testbuild="rm -drf build
+mkdir build
+cd build
+cmake ..
+make
+"
+
+alias quitbuild="cd ..
+rm -rf build
+"
+
 # I don't remember...
 export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
