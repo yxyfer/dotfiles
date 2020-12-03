@@ -74,9 +74,6 @@ cmake ..
 make
 "
 
-alias quitbuild="cd ..
-rm -rf build
-"
 
 # I don't remember...
 export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
