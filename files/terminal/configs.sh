@@ -52,15 +52,20 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
+
+
+
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
-# My implementations:
-
 # SOURCES ---
 # Get the custom prompt :)
 source $CUSTOM/prompt.sh
+
+# SHH-ADD SetUp
+source $CUSTOM/ssh_setup.sh
 
 # VM_CRI
 source $VM/vm_load.sh
