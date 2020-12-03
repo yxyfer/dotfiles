@@ -52,6 +52,11 @@ copy_old_profiles()
     return 0;
 }
 
+info_message()
+{
+    echo "[\e[34m$1\e[39m] $2"
+}
+
 end_message()
 {
     if [[ $RET -eq 0 ]]; then
@@ -61,6 +66,11 @@ end_message()
         echo "[\e[31mFAILED\e[39m]problem while installing $1."
         return 1;
     fi
+}
+
+pass_message()
+{
+    echo "[\e[32m$1\e[39m] $2"
 }
 
 install_vimrc()
@@ -80,29 +90,36 @@ install_vimrc()
 
 install_term()
 {
-    echo "[\e[34mInstalling\e[39m] Terminal Config"
+    info_message "INST" "Terminal Config"
 
-    cd
-    ssh-add
+    #ssh-add
 
-    echo "[\e[34mDownloading\e[39m] Oh-my-zsh"
-    git clone git@github.com:ohmyzsh/ohmyzsh.git
-    mv ohmyzsh/ .oh-my-zsh/
+    if [ -d ~/.oh-my-zsh ]; then
+        pass_message "PASS" "oh-my-zsh already installed."
+    else
+        info_message "DWLD" "installing Oh-my-zsh"
+        git clone git@github.com:ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
+    fi
 
-    echo "[\e[34mDownloading\e[39m] zsh-z"
-    git clone git@github.com:agkozak/zsh-z.git
-    mv zsh-z/ .oh-my-zsh/custom/plugins/
+    if [ -d ~/.oh-my-zsh/custom/plugins/zsh-z ]; then
+        pass_message "PASS" "zsh-z already installed."
+    else
+        info_message "DWLD" "installing zsh-z"
+        git clone git@github.com:agkozak/zsh-z.git ~/.oh-my-zsh/custom/plugins/zsh-z
+    fi
 
-    echo "[\e[34mDownloading\e[39m] zsh-syntax-highlighting"
-    git clone git@github.com:zsh-users/zsh-syntax-highlighting.git
-    mv zsh-syntax-highlighting .oh-my-zsh/custom/plugins
+    if [ -d ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting ]; then
+        pass_message "PASS" "zsh-syntax-highlighting already installed."
+    else
+        info_message "DWLD" "installing zsh-syntax-highlighting"
+        git clone git@github.com:zsh-users/zsh-syntax-highlighting.git
+        mv zsh-syntax-highlighting ~/.oh-my-zsh/custom/plugins
+    fi
 
-
-    echo "[\e[34mInstalling \e[39m] ZSHRC CONFIG"
+    info_message "INST" "ZSHRC CONFIG"
     echo "source $TERM_CONFIG_PATH" > ~/.zshrc
     source ~/.zshrc
 
-    cd -
     end_message "term profile";
 }
 
