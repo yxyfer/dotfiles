@@ -5,8 +5,8 @@
 CONFIGS="$(dirname $(dirname $(realpath $0)))/terminal"
 CUSTOM=$CONFIGS/custom
 VM=$CUSTOM/vm
-export ZSH=$CONFIGS/.oh-my-zsh
-
+#export ZSH=$CONFIGS/.oh-my-zsh
+export ZSH=~/.oh-my-zsh
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME

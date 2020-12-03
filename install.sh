@@ -2,7 +2,7 @@
 # AUTHOR: Mathieu Rivier
 # INSTALL dotfiles
 # use those commands from the Coding setup folder
-CONFIGS="$(dirname $(dirname $(realpath $0)))/CodingSetUp/files"
+CONFIGS="$(dirname $(dirname $(realpath $0)))/dotfiles/files"
 VIM_PATH=$CONFIGS/vim
 TERM_CONFIG_PATH=$CONFIGS/terminal/configs.sh
 
@@ -55,10 +55,10 @@ copy_old_profiles()
 end_message()
 {
     if [[ $RET -eq 0 ]]; then
-         echo "$1 installed."
+         echo "[\e[32mINSTALLED\e[39m] $1 installed."
          return 0;
     else
-        echo "problem while installing $1."
+        echo "[\e[31mFAILED\e[39m]problem while installing $1."
         return 1;
     fi
 }
@@ -80,16 +80,29 @@ install_vimrc()
 
 install_term()
 {
-    INSTALL_FILE="term"
-    copy_old_profiles
-    RET=$?
+    echo "[\e[34mInstalling\e[39m] Terminal Config"
 
-    if [ $RET -eq 0 ]; then
-        echo "source $TERM_CONFIG_PATH" > ~/.zshrc
-        RET=$?
-        [[ $RET -eq 1 ]] && echo "problem" || source ~/.zshrc
-    fi
+    cd
+    ssh-add
 
+    echo "[\e[34mDownloading\e[39m] Oh-my-zsh"
+    git clone git@github.com:ohmyzsh/ohmyzsh.git
+    mv ohmyzsh/ .oh-my-zsh/
+
+    echo "[\e[34mDownloading\e[39m] zsh-z"
+    git clone git@github.com:agkozak/zsh-z.git
+    mv zsh-z/ .oh-my-zsh/custom/plugins/
+
+    echo "[\e[34mDownloading\e[39m] zsh-syntax-highlighting"
+    git clone git@github.com:zsh-users/zsh-syntax-highlighting.git
+    mv zsh-syntax-highlighting .oh-my-zsh/custom/plugins
+
+
+    echo "[\e[34mInstalling \e[39m] ZSHRC CONFIG"
+    echo "source $TERM_CONFIG_PATH" > ~/.zshrc
+    source ~/.zshrc
+
+    cd -
     end_message "term profile";
 }
 
