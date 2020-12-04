@@ -1,31 +1,35 @@
 #!/bin/sh
 
+CUSTOM="$(dirname "$0")"
+source $CUSTOM/custom_messages.sh
+
 create_init_dir()
 {
     if [ -d "/tmp/is_init/" ]; then
-        echo "[\e[32mPASS\e[39m] is_init directory exists."
+        pass_message "PASS" "is_init directory exists."
     else
-        echo "[\e[34mCREAT\e[39m] creating directory is_init in /tmp/"
-            mkdir /tmp/is_init
+        info_message "CREAT" "Creating directory is_init in /tmp"
+        mkdir /tmp/is_init
+
         if [ -d "/tmp/is_init/" ]; then
-            echo "[\e[32mPASS\e[39m] created directory is_init in /tmp/"
+            pass_message "PASS" "Created directory is_init in /tmp"
         else
-            echo "[\e[31mFAIL\e[39m]] failed creating directory"
+            fail_message "FAIL" "failed creating directory is_init"
         fi
     fi
 }
 
 if [[ -d "/tmp/is_init" &&  "$(ls -A /tmp/is_init/)" ]]; then
-    echo "[\e[32mPASS\e[39m] ssh-add is up and runnning."
+    pass_message "PASS" "ssh-add is up and running."
 else
     create_init_dir
-    echo "[\e[34mCREAT\e[39m] ssh-add init."
+    info_message "SETUP" "ssh-add init."
     ssh-add -q
     RET=$?
     if [ $RET -eq 0 ]; then
         mktemp -q /tmp/is_init/is_init_ssh_XXX
-        echo "[\e[32mPASS\e[39m] ssh-add is now runnning."
+        pass_message "PASS" "ssh-add is now running."
     else
-        echo "[\e[31mFAIL\e[39m] ssh-add was not set up."
+        fail_message "FAIL" "ssh-add was not set up."
     fi
 fi

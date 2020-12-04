@@ -2,90 +2,47 @@
 # AUTHOR: Mathieu Rivier
 # INSTALL dotfiles
 # use those commands from the Coding setup folder
-CONFIGS="$(dirname $(dirname $(realpath $0)))/dotfiles/files"
+source files/terminal/custom/custom_messages.sh
+
+CONFIGS=$(pwd)/files
 VIM_PATH=$CONFIGS/vim
-TERM_CONFIG_PATH=$CONFIGS/terminal/configs.sh
+TERM_CONFIG_PATH=$CONFIGS/terminal/zshrc_config.sh
 
-check_vim_profiles()
+
+install_vim()
 {
-    if [[ -f ~/.vimrc ]]; then
-        mv ~/.vimrc ~/.old_profiles;
-        [[ $? = 0 ]] || return 1;
-        echo "old .vimrc moved to .old_profiles";
+    if [ ! -d ~/.old_term_profiles ]; then
+        mkdir ~/.old_term_profiles
+        pass_message "CRAT" "created .old_term_profiles"
     fi
 
-    if [[ -d ~/.vim ]]; then
-        mv ~/.vim ~/.old_profiles;
-        [[ $? = 0 ]] || return 1;
-        echo "old .vim moved to .old_profiles";
-    fi
-}
+    info_message "INST" "Vim rc config"
+    if [ -d ~/.vim ]; then
+        info_message "MOVE" "moving old /.vim folder config"
+        mv ~/.vim ~/.old_term_profiles/.vim
 
-check_term_profile()
-{
-    if [[ -f ~/.zshrc ]]; then
-       mv ~/.zshrc ~/.old_profiles;
-       [[ $? = 0 ]] || return 1;
-       echo "old .zshrc moved to .old_profiles";
-    fi
-}
-copy_old_profiles()
-{
-    if [[ ! -d ~/.old_profiles ]]; then
-        mkdir ~/.old_profiles;
-        echo ".old_profiles created";
+        if [ $? -eq 0 ]; then
+            pass_message "MOVE" "Moved old /.vim folder to .old_term_profiles"
+        else
+            fail_message "MOVE" "Could not move old /.vm folder to .old_term_profiles"
+        fi
     fi
 
-    # making old profiles redondent and moving them to the .old_profiles folder
-    case "$INSTALL_FILE" in
-        "vim")
-            check_vim_profiles;
-            ;;
-        "term")
-            check_term_profile
-            ;;
-        *)
-            echo "wrong dotfile";
-            return 1;
-    esac
+    if [ -f ~/.vimrc ]; then
+        info_message "Move" "moving old .vimrc config"
+        mv ~/.vimrc ~/.old_term_profiles/
 
-    return 0;
-}
-
-info_message()
-{
-    echo "[\e[34m$1\e[39m] $2"
-}
-
-end_message()
-{
-    if [[ $RET -eq 0 ]]; then
-         echo "[\e[32mINSTALLED\e[39m] $1 installed."
-         return 0;
-    else
-        echo "[\e[31mFAILED\e[39m]problem while installing $1."
-        return 1;
-    fi
-}
-
-pass_message()
-{
-    echo "[\e[32m$1\e[39m] $2"
-}
-
-install_vimrc()
-{
-    INSTALL_FILE=vim
-    copy_old_profiles
-    RET=$?
-
-    if [[ $RET -eq 0 ]]; then
-        cp $VIM_PATH/.vimrc ~/.vimrc
-        [[ $RET -eq 1 ]] && echo "problem" || cp -r $VIM_PATH/.vim ~/.vim
-        RET=$?
+        if [ $? -eq 0 ]; then
+            pass_message "MOVE" "Moved old /.vimrc file to .old_term_profiles"
+        else
+            fail_message "MOVE" "Could not move old /.vimrc file to .old_term_profiles"
+        fi
     fi
 
-    end_message "vim profile";
+    cp -r files/vim/.vim ~/
+    cp files/vim/.vimrc ~/
+    pass_message "INST" "Installed vim config"
+
 }
 
 install_term()
