@@ -30,7 +30,7 @@ let s:white       = { "gui": "#dcdfe4", "cterm": "188" }
 let s:fg          = s:white
 let s:bg          = s:black
 
-let s:comment_fg  = { "gui": "#5c6370", "cterm": "241" }
+let s:comment_fg  = { "gui": "#5c6370", "cterm": "244" }
 let s:gutter_bg   = { "gui": "#282c34", "cterm": "236" }
 let s:gutter_fg   = { "gui": "#919baa", "cterm": "247" }
 let s:non_text    = { "gui": "#373C45", "cterm": "239" }

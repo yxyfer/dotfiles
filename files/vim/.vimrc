@@ -66,7 +66,6 @@ nnoremap <C-H> <C-W><C-H>
 set splitright
 set splitbelow
 
-
 " SETTING UP THE STATUS LINE
 hi DiffAdd ctermbg=176 ctermfg=black
 hi DiffChange ctermbg=yellow ctermfg=black
@@ -148,11 +147,11 @@ endfunction
 
 
 " coding style checker
-imap <C-j> <c-o>:pyf /Users/mathieu.rivier/Documents/Projects/CodingSetUp/files/vim/clang-format.py<cr>
+imap <C-j> <c-o>:pyf /Users/mathieu.rivier/Documents/Projects/dotfiles/files/vim/clang-format.py<cr>
 imap <C-k> <c-o>:call FormatFile()<cr>
-map <C-j> <c-o>:pyf /Users/mathieu.rivier/Documents/Projects/CodingSetUp/files/vim/clang-format.py<cr>
+map <C-j> <c-o>:pyf /Users/mathieu.rivier/Documents/Projects/dotfiles/files/vim/clang-format.py<cr>
 map <C-k> <c-o>:call FormatFile()<cr>
 function FormatFile()
    let l:lines="all"
-   pyf /Users/mathieu.rivier/Documents/Projects/CodingSetUp/files/vim/clang-format.py
+   pyf /Users/mathieu.rivier/Documents/Projects/dotfiles/files/vim/clang-format.py
 endfunction
