@@ -85,6 +85,9 @@ source $CUSTOM/ssh_setup.sh
 source $VM/vm_load.sh
 alias vm_ware=$VM/vm_ware.sh
 
+# Git Status alias
+alias gs="git status"
+
 # test 42sh
 alias testbuild="rm -drf build
 mkdir build
