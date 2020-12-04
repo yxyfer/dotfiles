@@ -92,7 +92,7 @@ install_term()
 {
     info_message "INST" "Terminal Config"
 
-    #ssh-add
+    ssh-add
 
     if [ -d ~/.oh-my-zsh ]; then
         pass_message "PASS" "oh-my-zsh already installed."
@@ -134,5 +134,3 @@ install_configs()
 
     end_message "vim and term profiles"
 }
-
-#exit 0;
