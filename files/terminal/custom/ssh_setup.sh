@@ -1,7 +1,6 @@
 #!/bin/sh
 
-CUSTOM="$(dirname "$0")"
-source $CUSTOM/custom_messages.sh
+source $CONFIGS/custom/custom_messages.sh
 
 create_init_dir()
 {

@@ -2,7 +2,12 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-CONFIGS=$(pwd)/files/terminal
+
+#echo "The script you are running has basename `basename "$0"`, dirname `dirname "$0"`"
+#echo "The present working directory is `pwd`"
+
+CONFIGS=`dirname "$0"`
+export CONFIGS
 CUSTOM=$CONFIGS/custom
 VM=$CUSTOM/vm
 
