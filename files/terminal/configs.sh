@@ -59,6 +59,14 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
+# Man page colors:
+export LESS_TERMCAP_mb=$'\e[1;33m'
+export LESS_TERMCAP_md=$'\e[1;49m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[01;33m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[1;94m'
 
 # SOURCES ---
 # Get the custom prompt :)
