@@ -6,7 +6,8 @@
 #echo "The script you are running has basename `basename "$0"`, dirname `dirname "$0"`"
 #echo "The present working directory is `pwd`"
 
-CONFIGS=`dirname "$0"`
+#CONFIGS=`dirname "$0"`
+CONFIGS=/Users/mathieu.rivier/Documents/dotfiles/files/terminal/
 export CONFIGS
 CUSTOM=$CONFIGS/custom
 VM=$CUSTOM/vm
@@ -95,3 +96,12 @@ cd build
 cmake ..
 make
 "
+# Alias for 42sh on vm
+alias cpytest="python -m venv venv
+source venv/bin/activate
+pip install pytest pyyaml"
+
+alias dpytest="rm -rf __pycache__
+rm -rf venv"
+
+alias close="exit 1"

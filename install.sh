@@ -8,41 +8,30 @@ CONFIGS=$(pwd)/files
 VIM_PATH=$CONFIGS/vim
 TERM_CONFIG_PATH=$CONFIGS/terminal/zshrc_config.sh
 
+check_success_message()
+{
+    if [ "$1" -eq 0 ]; then
+        pass_message "$2" "succeeded $3"
+    else
+        fail_message "$2" "Failed $3"
+        STATUS=1
+    fi
+}
 
 install_vim()
 {
-    if [ ! -d ~/.old_term_profiles ]; then
-        mkdir ~/.old_term_profiles
-        pass_message "CRAT" "created .old_term_profiles"
-    fi
+    info_message "INST" "Installing Vim Config"
+    STATUS=0
+    info_message "LINK" "Linking .vim/ folder to ~/.vim"
+    ln -s $VIM_PATH/.vim   ~/.vim
+    check_success_message "$?" "LINK" "Linking vim/ folder to ~/.vim"
 
-    info_message "INST" "Vim rc config"
-    if [ -d ~/.vim ]; then
-        info_message "MOVE" "moving old /.vim folder config"
-        mv ~/.vim ~/.old_term_profiles/.vim
+    info_message "LINK" "Linking .vimrc to ~/.vimrc"
+    ln $VIM_PATH/.vimrc ~/.vimrc
+    check_success_message "$?" "LINK" "Linking .vimrc to ~/.vimrc"
 
-        if [ $? -eq 0 ]; then
-            pass_message "MOVE" "Moved old /.vim folder to .old_term_profiles"
-        else
-            fail_message "MOVE" "Could not move old /.vm folder to .old_term_profiles"
-        fi
-    fi
-
-    if [ -f ~/.vimrc ]; then
-        info_message "Move" "moving old .vimrc config"
-        mv ~/.vimrc ~/.old_term_profiles/
-
-        if [ $? -eq 0 ]; then
-            pass_message "MOVE" "Moved old /.vimrc file to .old_term_profiles"
-        else
-            fail_message "MOVE" "Could not move old /.vimrc file to .old_term_profiles"
-        fi
-    fi
-
-    cp -r files/vim/.vim ~/
-    cp files/vim/.vimrc ~/
-    pass_message "INST" "Installed vim config"
-
+    # check if successfully linked
+    check_success_message "$STATUS" "INST" "installing vim config"
 }
 
 install_term()
@@ -56,6 +45,7 @@ install_term()
     else
         info_message "DWLD" "installing Oh-my-zsh"
         git clone git@github.com:ohmyzsh/ohmyzsh.git ~/.oh-my-zsh
+        check_success_message "$?" "installing oh-my-zsh"
     fi
 
     if [ -d ~/.oh-my-zsh/custom/plugins/zsh-z ]; then
@@ -63,6 +53,7 @@ install_term()
     else
         info_message "DWLD" "installing zsh-z"
         git clone git@github.com:agkozak/zsh-z.git ~/.oh-my-zsh/custom/plugins/zsh-z
+        check_success_message "$?" "installing zsh-z"
     fi
 
     if [ -d ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting ]; then
@@ -71,10 +62,16 @@ install_term()
         info_message "DWLD" "installing zsh-syntax-highlighting"
         git clone git@github.com:zsh-users/zsh-syntax-highlighting.git
         mv zsh-syntax-highlighting ~/.oh-my-zsh/custom/plugins
+        check_success_message "$?" "installing zsh-syntax-highlighting"
     fi
 
-    info_message "INST" "ZSHRC CONFIG"
-    echo "source $TERM_CONFIG_PATH" > ~/.zshrc
+
+    STATUS=0
+    info_message "LINK" "Linking zshrc_config to ~/.zsrc"
+    ln $TERM_CONFIG_PATH ~/.zshrc
+    check_success_message "$?" "LINK" "Linking zshrc_config to ~/.zsrc"
+
+    info_message "SOUR" "Sourcing ~/.zshrc"
     source ~/.zshrc
 
     end_message "term profile";
