@@ -85,6 +85,8 @@ source $CUSTOM/ssh_setup.sh
 # VM_CRI
 source $VM/vm_load.sh
 alias vm_ware=$VM/vm_ware.sh
+# only use in the vm
+alias vmpatch='systemctl restart vmtoolsd.service'
 
 # Git Status alias
 alias gs="git status"
@@ -93,7 +95,7 @@ alias gs="git status"
 alias testbuild="rm -drf build
 mkdir build
 cd build
-cmake ..
+cmake -DCMAKE_BUILD_TYPE=Debug ..
 make
 "
 # Alias for 42sh on vm
@@ -105,3 +107,5 @@ alias dpytest="rm -rf __pycache__
 rm -rf venv"
 
 alias close="exit 1"
+export PATH="/usr/local/opt/bison/bin:$PATH"
+export PATH="/usr/local/opt/flex/bin:$PATH"
