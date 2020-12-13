@@ -18,6 +18,17 @@ check_success_message()
     fi
 }
 
+install_git()
+{
+    info_message "LINK" "Linking .gitconfig"
+    ln $CONFIGS/git/gitconfig ~/.gitconfig
+    check_success_message "$?" "LINK" "Linking gitconfig to ~/.gitconfig"
+
+    info_message "LINK" "Linking .gitignore"
+    ln $CONFIGS/git/gitignore ~/.gitignore
+    check_success_message "$?" "LINK" "Linking gitignore to ~/.gitignore"
+}
+
 install_vim()
 {
     info_message "INST" "Installing Vim Config"

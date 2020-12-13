@@ -1,0 +1,33 @@
+[user]
+	name = John Appleseed
+	email = john.appleseed@apple.fr
+	username = john.apppleseed
+[core]
+	excludesfile = ~/.gitignore
+	editor = vim
+[color]
+	ui = auto
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
+[delta]
+	features = line-numbers decorations
+	line-numbers = true
+[alias]
+	a = add -u
+	c = commit
+	cm = commit -m
+	d = diff
+	l = log --oneline
+	lg = log --oneline --graph --decorate
+	pr = prune -v
+	ps = push --follow-tags
+	s = status
+	t = tag -a

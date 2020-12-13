@@ -90,6 +90,8 @@ alias vmpatch='systemctl restart vmtoolsd.service'
 
 # Git Status alias
 alias gs="git status"
+# Git gtree alias
+alias gtree="git ls-tree -r --name-only HEAD | tree --fromfile"
 
 # test 42sh
 alias testbuild="rm -drf build
@@ -98,10 +100,13 @@ cd build
 cmake -DCMAKE_BUILD_TYPE=Debug ..
 make
 "
+
 # Alias for 42sh on vm
 alias cpytest="python -m venv venv
 source venv/bin/activate
 pip install pytest pyyaml"
+
+alias spytest="source venv/bin/activate"
 
 alias dpytest="rm -rf __pycache__
 rm -rf venv"
