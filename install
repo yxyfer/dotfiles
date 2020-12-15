@@ -2,11 +2,12 @@
 # AUTHOR: Mathieu Rivier
 # INSTALL dotfiles
 # use those commands from the Coding setup folder
-source files/terminal/custom/custom_messages.sh
+source $(pwd)/files/terminal/custom/custom_messages.sh
 
 CONFIGS=$(pwd)/files
 VIM_PATH=$CONFIGS/vim
 TERM_CONFIG_PATH=$CONFIGS/terminal/zshrc_config.sh
+
 
 check_success_message()
 {
@@ -16,6 +17,11 @@ check_success_message()
         fail_message "$2" "Failed $3"
         STATUS=1
     fi
+}
+
+install_brew()
+{
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 }
 
 install_git()
