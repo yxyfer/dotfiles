@@ -6,8 +6,8 @@
 #echo "The script you are running has basename `basename "$0"`, dirname `dirname "$0"`"
 #echo "The present working directory is `pwd`"
 
-#CONFIGS=`dirname "$0"`
-CONFIGS=/Users/mathieu.rivier/Documents/dotfiles/files/terminal/
+CONFIGS=~/.term_confs
+#CONFIGS=/Users/mathieu.rivier/Documents/dotfiles/files/terminal/
 export CONFIGS
 CUSTOM=$CONFIGS/custom
 VM=$CUSTOM/vm

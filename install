@@ -53,6 +53,7 @@ install_vim()
 
 install_term()
 {
+    ln -s $CONFIGS/terminal ~/.term_confs
     info_message "INST" "Terminal Config"
 
     ssh-add
