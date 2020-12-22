@@ -17,7 +17,7 @@ giti  // to Install git
 
 ---
 ## About the purple_theme themes:
------
+
 ![alt text](https://github.com/yxyfer/CodingSetUp/blob/master/images/purple_theme_term.png "Terminal Theme Image")
 
 - Two versions:
@@ -27,8 +27,8 @@ giti  // to Install git
 - You will notice that the terminal theme is a bit darker than the vim theme because otherwise I had trouble differentiating them...
 - they are easy on the eyes :).
 
+---
 ## About the Terminal Profile
-----
 #### Configs.sh
 - This is essentially the .zshrc.
 - Has some
@@ -69,8 +69,8 @@ format: vm_connect
 
    - Connects your to the vm automatically.
 
-## About the Vim Profile
 ---
+## About the Vim Profile
 - My personal Vim profile
 - adds quite a lot of features.
 - Includes a custom and fast status line
