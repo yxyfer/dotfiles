@@ -1,6 +1,5 @@
-# Dotfiles
-----
-## Installation Process
+# Dotfiles 🚀 
+## Installation Process 📝
 0. You don't need anything! --> Installs everything including Oh-my-zsh and the necessary plugins. ( you can add some by modifying the `install` file.
 1. go in the CodingSetUp folder.
 2. source install
@@ -15,8 +14,8 @@ giti  // to Install git
    you can import the purple_theme.terminal in the terminal configurations and set it to default
 5. You're Done :) enjoy 
 
----
-## About the purple_theme themes:
+
+## About the purple_theme themes 💜
 
 ![alt text](https://github.com/yxyfer/CodingSetUp/blob/master/images/purple_theme_term.png "Terminal Theme Image")
 
@@ -27,8 +26,8 @@ giti  // to Install git
 - You will notice that the terminal theme is a bit darker than the vim theme because otherwise I had trouble differentiating them...
 - they are easy on the eyes :).
 
----
-## About the Terminal Profile
+
+## About the Terminal Profile ✍️ 
 #### Configs.sh
 - This is essentially the .zshrc.
 - Has some
@@ -51,7 +50,6 @@ format: user.name dir-1/dir >   [...]   [git-branch] // Git branch on the right
 ![alt text](https://github.com/yxyfer/CodingSetUp/blob/master/images/git_integration_prompt.png "Git integration Prompt Image")
 
 #### VM - Only works with vm_ware
----
 This is a very neet integration that allows you to start / stop / suspend your vm_ware vm's from the command line and without needing to ever leave the command line :). Even connects to ssh on its own.
 - USAGE of vm_ware:
 ```
@@ -69,7 +67,7 @@ format: vm_connect
 
    - Connects your to the vm automatically.
 
----
+
 ## About the Vim Profile
 - My personal Vim profile
 - adds quite a lot of features.
