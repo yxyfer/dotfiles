@@ -1,7 +1,6 @@
 # Dotfiles
-
-## Installation Process
 ----
+## Installation Process
 0. You don't need anything! --> Installs everything including Oh-my-zsh and the necessary plugins. ( you can add some by modifying the `install` file.
 1. go in the CodingSetUp folder.
 2. source install
