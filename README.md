@@ -1,4 +1,21 @@
 # CodingSetUp
+
+## Installation Process
+----
+0. You don't need anything! --> Installs everything including Oh-my-zsh and the necessary plugins. ( you can add some by modifying the `install` file.
+1. go in the CodingSetUp folder.
+2. source install
+3. multiple options: 
+```
+termi // to Install terminal profile
+vimi  // to Install vim profile (includes custom purple_theme)
+giti  // to Install git
+```
+4. if you're on a mac (with original terminal)
+   
+   you can import the purple_theme.terminal in the terminal configurations and set it to default
+5. You're Done :) enjoy 
+
 ---
 ## About the purple_theme themes:
 -----
@@ -59,19 +76,3 @@ format: vm_connect
 - adds quite a lot of features.
 - Includes a custom and fast status line
 [ ] Add Picture
-
-## Installation Process
-----
-0. You need to have oh-my-zsh installed on your machine first!
-1. go in the CodingSetUp folder.
-2. source install.sh
-3. multiple options: 
-```
-install_term // to Install terminal profile
-instal_vimrc // to Install vim profile (includes custom purple_theme
-instal_configs // to Install both vim and terminal profiles
-```
-4. if you're on a mac (with original terminal)
-   
-   you can import the purple_theme.terminal in the terminal configurations and set it to default
-5. You're Done :) enjoy 
