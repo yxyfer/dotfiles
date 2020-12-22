@@ -8,7 +8,7 @@ CONFIGS=$(pwd)/files
 VIM_PATH=$CONFIGS/vim
 TERM_CONFIG_PATH=$CONFIGS/terminal/zshrc_config.sh
 
-# INSTALLATION FUNCTIONS 
+# INSTALLATION FUNCTIONS
 install_f_git()
 {
     # $1 = name
@@ -16,6 +16,7 @@ install_f_git()
     # $3 = link
     if [ -d $2 ]; then
         pass_message "$1 already installed."
+        return 0
     else
         git clone $3 $2
         check_success_message "$?" "installing $1"
@@ -28,22 +29,21 @@ link_f_git()
     # $2 = path
     # $3 = link
     if [ -L $1 ]; then
-        info_message "LINK" "Deleting old link to $1"
         rm -i $1
         if [ -e $1 ]; then
-            fail_message "FAIL" "failed deleting the link to $1"
+            fail_message "failed deleting the link to $1"
             return 1
+        else
+            pass_message "successfully deleted old link to $1"
         fi
     elif [ -e $1 ]; then
-        info_message "LINK" "File $1 already exists moving it to ~/.old_confs"
         mkdir ~/.old_confs
         mv $1 ~/.old_confs/
         check_success_message "$?" "LINK" "Moving $1 to ~/.old_confs"
     fi
 
-    info_message "LINK" "Linking terminal to $1"
     ln -s $2 $1
-    check_success_message "$?" "linking $1"
+    check_success_message "$?" "successfully linked $2 to $1"
 }
 
 # INSTALLATION OF MY SETUP :)
@@ -65,13 +65,13 @@ termi()
 
 
     # link
-    link_f_git ~/.term_confs $CONFIGS/terminal
-    link_f_git ~/.zshrc $TERM_CONFIG_PATH
+    link_f_git ~/.term_confs $CONFIGS/terminal; STATUS=$(($? + STATUS))
+    link_f_git ~/.zshrc $TERM_CONFIG_PATH     ; STATUS=$(($? + STATUS))
 
     info_message "SOUR" "Sourcing ~/.zshrc"
     source ~/.zshrc
 
-    end_message "term profile";
+    end_message $STATUS "term profile"
 }
 
 vimi()
@@ -79,18 +79,19 @@ vimi()
     info_message "INST" "Installing Vim Config"
     STATUS=0
 
-    link_f_git ~/.vim .vim
-    link_f_git ~/.vimrc .vimrc
+    link_f_git ~/.vim $VIM_PATH/.vim    ; STATUS=$(($? + STATUS))
+    link_f_git ~/.vimrc $VIM_PATH/.vimrc; STATUS=$(($? + STATUS))
 
-    check_success_message "$STATUS" "installing vim config"
+    end_message $STATUS "installing vim config"
 }
 
 giti()
 {
-    link_f_git ~/.gitconfig $CONFIGS/git/gitconfig
-    link_f_git ~/.gitignore $CONFIG/git/gitignore
+    STATUS=0
+    link_f_git ~/.gitconfig $CONFIGS/git/gitconfig; STATUS=$(($? + STATUS))
+    link_f_git ~/.gitignore $CONFIG/git/gitignore ; STATUS=$(($? + STATUS))
 
-    check_success_message "$STATUS" "installing git config"
+    end_message  $STATUS "installing git config"
     info_message "Please replace your git name , mail and username"
     echo "Using the following command:"
     echo "git config --global user.name YOUR_NAME"
@@ -102,5 +103,3 @@ install_brew()
 {
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 }
-
-$1
