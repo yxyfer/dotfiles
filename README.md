@@ -1,4 +1,4 @@
-# CodingSetUp
+# Dotfiles
 
 ## Installation Process
 ----
