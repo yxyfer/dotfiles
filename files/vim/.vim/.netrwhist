@@ -1,5 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =1
+let g:netrw_dirhistcnt =3
+let g:netrw_dirhist_3='/Users/mathieu.rivier/dotfiles/files/terminal'
+let g:netrw_dirhist_2='/Users/mathieu.rivier/dotfiles/files'
 let g:netrw_dirhist_1='/Users/mathieu.rivier/Documents/Projects/docker/Epita-Container/home'
 let g:netrw_dirhist_0='/Users/mathieu.rivier/Documents/Projects/42sh/tests/func'
 let g:netrw_dirhist_9='/Users/mathieu.rivier/Documents/Projects/42sh/tests/func/if_tests'
@@ -8,5 +10,3 @@ let g:netrw_dirhist_7='/Users/mathieu.rivier/Documents/Projects/42sh'
 let g:netrw_dirhist_6='/Users/mathieu.rivier/Documents/Projects/42sh/src'
 let g:netrw_dirhist_5='/Users/mathieu.rivier/.vim'
 let g:netrw_dirhist_4='/Users/mathieu.rivier/Documents/Projects/42sh/src/parser'
-let g:netrw_dirhist_3='/Users/mathieu.rivier/Documents/Projects/42sh/src'
-let g:netrw_dirhist_2='/Users/mathieu.rivier/Documents/Projects/42sh/src/parser'

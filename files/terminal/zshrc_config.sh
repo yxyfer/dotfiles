@@ -56,6 +56,7 @@ plugins=(
         git-auto-fetch
         zsh-z
         zsh-syntax-highlighting
+        zsh-autosuggestions
 )
 
 source $ZSH/oh-my-zsh.sh

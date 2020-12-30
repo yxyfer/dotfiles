@@ -53,16 +53,23 @@ termi()
     STATUS=0
 
     # Install from remote
+    # Instqll Oh-my-zsh
     install_f_git "oh-my-zsh" ~/.oh-my-zsh "git@github.com:ohmyzsh/ohmyzsh.git"
 
+    # Instqll zsh-z
     install_f_git "zsh-z" \
                   ~/.oh-my-zsh/custom/plugins/zsh-z \
                   "git@github.com:agkozak/zsh-z.git"
 
+    # Instqll Syntax Highlighting
     install_f_git "zsh-syntax-highlighting" \
                   ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting \
                   "git@github.com:zsh-users/zsh-syntax-highlighting.git"
 
+    # Install autosuggestions
+    install_f_git "zsh-autosuggestions" \
+                  ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions \
+                  "https://github.com/zsh-users/zsh-autosuggestions"
 
     # link
     link_f_git ~/.term_confs $CONFIGS/terminal; STATUS=$(($? + STATUS))
