@@ -96,7 +96,7 @@ giti()
 {
     STATUS=0
     link_f_git ~/.gitconfig $CONFIGS/git/gitconfig; STATUS=$(($? + STATUS))
-    link_f_git ~/.gitignore $CONFIG/git/gitignore ; STATUS=$(($? + STATUS))
+    link_f_git ~/.gitignore $CONFIGS/git/gitignore ; STATUS=$(($? + STATUS))
 
     end_message  $STATUS "installing git config"
     info_message "Please replace your git name , mail and username"
