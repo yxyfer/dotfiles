@@ -90,6 +90,10 @@ vimi()
     link_f_git ~/.vim $VIM_PATH/.vim    ; STATUS=$(($? + STATUS))
     link_f_git ~/.vimrc $VIM_PATH/.vimrc; STATUS=$(($? + STATUS))
 
+    cd ~/.vim/bundle/YouCompleteMe
+    git submodule update --init --recursive
+    ./install.py
+
     end_message $STATUS "installing vim config"
 }
 
