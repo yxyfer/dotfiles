@@ -16,6 +16,8 @@ Plugin 'rhysd/vim-clang-format'
 call vundle#end()
 filetype plugin indent on
 
+autocmd FileType cpp ClangFormatAutoEnable
+
 " Basics:
 " 0. General Settings:
 
