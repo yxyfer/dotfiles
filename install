@@ -83,6 +83,7 @@ termi()
 
 vimi()
 {
+    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
     info_message "INST" "Installing Vim Config"
     STATUS=0
 

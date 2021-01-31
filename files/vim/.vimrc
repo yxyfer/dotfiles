@@ -1,5 +1,21 @@
 " This .vimrc has been updated on Wed 30 Sept 2020
 
+set nocompatible " required
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" Let Vundle Manage itself.
+Plugin 'gmarik/Vundle.vim'
+
+
+" Plugins
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'rhysd/vim-clang-format'
+
+call vundle#end()
+filetype plugin indent on
+
 " Basics:
 " 0. General Settings:
 
@@ -147,11 +163,11 @@ endfunction
 
 
 " coding style checker
-imap <C-j> <c-o>:pyf /Users/mathieu.rivier/Documents/Projects/dotfiles/files/vim/clang-format.py<cr>
+imap <C-j> <c-o>:pyf /Users/mathieu.rivier/dotfiles/files/vim/clang-format.py<cr>
 imap <C-k> <c-o>:call FormatFile()<cr>
-map <C-j> <c-o>:pyf /Users/mathieu.rivier/Documents/Projects/dotfiles/files/vim/clang-format.py<cr>
+map <C-j> <c-o>:pyf /Users/mathieu.rivier/dotfiles/files/vim/clang-format.py<cr>
 map <C-k> <c-o>:call FormatFile()<cr>
 function FormatFile()
    let l:lines="all"
-   pyf /Users/mathieu.rivier/Documents/Projects/dotfiles/files/vim/clang-format.py
+   pyf /Users/mathieu.rivier/dotfiles/files/vim/clang-format.py
 endfunction
