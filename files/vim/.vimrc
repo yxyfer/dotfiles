@@ -12,6 +12,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'rhysd/vim-clang-format'
+Plugin 'bfrg/vim-cpp-modern'
 
 call vundle#end()
 filetype plugin indent on
@@ -26,6 +27,7 @@ set noswapfile
 " 1. Adding the helpful visual composents:
 
 colorscheme purple_theme
+" colorscheme delek
 " colorscheme onehalfdark     " My theme of the moment
 
 set number

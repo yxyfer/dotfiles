@@ -102,7 +102,7 @@ c_completion()
 
     cd ~/.vim/bundle/YouCompleteMe
     git submodule update --init --recursive
-    ./install.py
+    ./install.py --clangd-completer
     cd -
 
     end_message $STATUS "installing vim config"
