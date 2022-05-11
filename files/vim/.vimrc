@@ -1,23 +1,94 @@
 " This .vimrc has been updated on Wed 30 Sept 2020
 
-set nocompatible " required
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
 
-" Let Vundle Manage itself.
-Plugin 'gmarik/Vundle.vim'
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+Plugin 'tpope/vim-fugitive'
+" plugin from http://vim-scripts.org/vim/scripts.html
+" Plugin 'L9'
+" Git plugin not hosted on GitHub
+"Plugin 'git://git.wincent.com/command-t.git'
+" git repos on your local machine (i.e. when working on your own plugin)
+"Plugin 'file:///home/gmarik/path/to/plugin'
+" The sparkup vim script is in a subdirectory of this repo called vim.
+" Pass the path to set the runtimepath properly.
+Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+" Install L9 and avoid a Naming conflict if you've already installed a
+" different version somewhere else.
+" Plugin 'ascenator/L9', {'name': 'newL9'}
 
 
-" Plugins
+
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'rhysd/vim-clang-format'
-Plugin 'bfrg/vim-cpp-modern'
 
-call vundle#end()
-filetype plugin indent on
+Plugin 'python/black'
 
-autocmd FileType cpp ClangFormatAutoEnable
+Plugin 'nvie/vim-flake8'
+
+Plugin 'dense-analysis/ale'
+Plugin 'joshdick/onedark.vim'
+
+Plugin 'vim-python/python-syntax'
+
+Plugin 'tpope/vim-commentary'
+
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+
+
+" autoformat for python with black
+" autocmd BufWritePre *.py execute ':Black'
+
+
+" Close auto complete preview after use
+let g:ycm_autoclose_preview_window_after_completion=1
+
+
+      " \   'python': ['flake8', 'pylint'],
+" Ale use the right formatter
+let g:ale_linters = {
+      \   'python': ['flake8'],
+      \   'javascript': ['eslint'],
+      \}
+
+let g:ale_fixers = {'python': ['yapf', 'isort', 'trim_whitespace']}
+let g:ale_fix_on_save = 1
+
+" To have the normal clipboard of the mac!
+set clipboard=unnamed
+
+
+" Better highlighting in python
+let g:python_highlight_all = 1
+
+"""""""" REAL ONE
+
+" autocmd FileType cpp ClangFormatAutoEnable
 
 " Basics:
 " 0. General Settings:
@@ -27,11 +98,10 @@ set noswapfile
 " 1. Adding the helpful visual composents:
 
 colorscheme purple_theme
-" colorscheme delek
-" colorscheme onehalfdark     " My theme of the moment
+" colorscheme onedark
 
 set number
-set relativenumber      " adds line numbers on the left.
+"set relativenumber      " adds line numbers on the left.
 set ruler       " adds line and column number bottom right.
 set cursorline  " highlights the current line.
 syntax on       " Allows text keyword highlighting.
@@ -45,7 +115,6 @@ set list listchars=tab:>-,trail:.
 set expandtab       " replaces tabs with (softtabstop amount of) spaces.
 set softtabstop=4   " number of spaces for a tab.
 set shiftwidth=4
-
 
 set scrolloff=7 " number of lines to keep context when scrolling
 set smartindent  " automatically indent to above line;
@@ -175,3 +244,25 @@ function FormatFile()
    let l:lines="all"
    pyf /Users/mathieu.rivier/dotfiles/files/vim/clang-format.py
 endfunction
+
+
+
+set backspace=indent,eol,start
+
+" TEst
+
+" Shows the number of errors in the status line
+function! LinterStatus() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+
+  return l:counts.total == 0 ? '✨ all good ✨' : printf(
+        \   '😞 %dW %dE',
+        \   all_non_errors,
+        \   all_errors
+        \)
+endfunction
+
+set statusline +=\ %{LinterStatus()}
