@@ -1,41 +1,23 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Path to your oh-my-zsh installation.
-
+# Debugging lines
 #echo "The script you are running has basename `basename "$0"`, dirname `dirname "$0"`"
 #echo "The present working directory is `pwd`"
 
 CONFIGS=~/.term_confs
-#CONFIGS=/Users/mathieu.rivier/Documents/dotfiles/files/terminal/
 export CONFIGS
+
 CUSTOM=$CONFIGS/custom
-VM=$CUSTOM/vm
 
 export ZSH=~/.oh-my-zsh
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-#ZSH_THEME="robbyrussell"
-ZSH_THEME="robbyrussell"
 
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
-
+# CUSTOM THEME - NOT USING ZSH!
+# Get the custom prompt :)
 
 # Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+DISABLE_MAGIC_FUNCTIONS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -48,8 +30,6 @@ ZSH_THEME="robbyrussell"
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
 
 plugins=(
         git
@@ -59,12 +39,11 @@ plugins=(
         zsh-autosuggestions
 )
 
+
 source $ZSH/oh-my-zsh.sh
 
-
-
-
-# User configuration
+source $CUSTOM/prompt.sh
+########### User configuration ###############
 
 # export MANPATH="/usr/local/man:$MANPATH"
 # Man page colors:
@@ -76,42 +55,33 @@ export LESS_TERMCAP_so=$'\e[01;33m'
 export LESS_TERMCAP_ue=$'\e[0m'
 export LESS_TERMCAP_us=$'\e[1;94m'
 
-# SOURCES ---
-# Get the custom prompt :)
-source $CUSTOM/prompt.sh
 
-# SHH-ADD SetUp
-source $CUSTOM/ssh_setup.sh
-
-# VM_CRI
-source $VM/vm_load.sh
-alias vm_ware=$VM/vm_ware.sh
-# only use in the vm
-alias vmpatch='systemctl restart vmtoolsd.service'
-
-# Git Status alias
-alias gs="git status"
 # Git gtree alias
 alias gtree="git ls-tree -r --name-only HEAD | tree --fromfile"
-
-# test 42sh
-alias testbuild="rm -drf build
-mkdir build
-cd build
-cmake -DCMAKE_BUILD_TYPE=Debug ..
-make
-"
-
-# Alias for 42sh on vm
-alias cpytest="python -m venv venv
-source venv/bin/activate
-pip install pytest pyyaml"
-
-alias spytest="source venv/bin/activate"
-
-alias dpytest="rm -rf __pycache__
-rm -rf venv"
-
 alias close="exit 1"
-export PATH="/usr/local/opt/bison/bin:$PATH"
-export PATH="/usr/local/opt/flex/bin:$PATH"
+
+# Postgres setup
+export PATH="/usr/local/opt/postgresql@13/bin:$PATH"
+export PGHOST="/tmp"
+export PGDATA="$HOME/postgres_data"
+
+# JAVA version 
+
+export JAVA_8_HOME=$(/usr/libexec/java_home -v1.8)
+export JAVA_11_HOME=$(/usr/libexec/java_home -v11)
+export JAVA_11_HOME=$(/Library/Java/JavaVirtualMachines/openjdk-11.0.9.1+1/Contents/Home)
+
+alias java8='export JAVA_HOME=$JAVA_8_HOME; java -version'
+alias java11='export JAVA_HOME=$JAVA_11_HOME; java -version'
+
+# SPARK setup
+export SPARK_HOME="/usr/local/Cellar/apache-spark/3.2.1/SPARK"
+
+# Python setup
+export PATH="/usr/local/opt/python@3.9/bin:$PATH"
+
+# PlaidML setup
+export PLAIDML_NATIVE_PATH=/usr/local/lib/libplaidml.dylib
+export RUNFILES_DIR=/usr/local/share/plaidml
+
+source ~/.mattSecrets
