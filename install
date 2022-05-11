@@ -83,12 +83,17 @@ termi()
 
 vimi()
 {
-    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
     info_message "INST" "Installing Vim Config"
     STATUS=0
 
+    install_f_git "Vundle" \
+                  $VIM_PATH/.vim/bundle/Vundle.vim \
+                  "https://github.com/VundleVim/Vundle.vim.git"
+
+    # Adding vim links to home
     link_f_git ~/.vim $VIM_PATH/.vim    ; STATUS=$(($? + STATUS))
     link_f_git ~/.vimrc $VIM_PATH/.vimrc; STATUS=$(($? + STATUS))
+    link_f_git ~/.style.yapf $VIM_PATH/.style.yapf; STATUS=$(($? + STATUS))
 
 
     end_message $STATUS "installing vim config"
