@@ -1,3 +1,4 @@
 .DS_Store
 .vimswp
 venv/
+files/vim/.vim/.netrwhist
