@@ -1,0 +1,7 @@
+"""
+    Name:       name
+    Authors:    Mathieu Rivier
+    Version:    1.0
+
+    This is a short description
+"""

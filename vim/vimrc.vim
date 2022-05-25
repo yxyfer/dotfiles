@@ -1,6 +1,6 @@
 " =============================================================================
 "   Name:        .vimrc
-"   Author:      Mathieu Rivier
+"   Author:      Mathieu Rivier (yxyfer)
 "   Version:     1.0
 "
 "   My Current .vimrc file
@@ -112,19 +112,24 @@ normal! F)vi(<cr>
 
 " ########################### STATUS LINE ##################################
 
+" Showing the Status line
 set laststatus=2
-set statusline=%f         " Path to the file
-set statusline+=%=        " Switch to the right side
-set statusline+=%y\       " Filetype of the file
-set statusline+=[%04l
-set statusline+=/         " Separator
-set statusline+=%4L]\      " Total lines
+" Path to the file
+set statusline=%f
+" Switch to the right side
+set statusline+=%=
+" Show modified sign
+set statusline+=%m\  
+" Filetype of the file
+set statusline+=%y\ 
+" Show the line number and total line
+set statusline+=[%03P]
 
 
 " ########################### FileType Settings ##################################
 " Use za to fold and unfold
 
-function! Commenter()
+function! YxyComment()
     let l:cur = match(getline('.'), '\S')
     let l:f_letter = strpart(getline("."), l:cur, 1)
 
@@ -135,8 +140,8 @@ function! Commenter()
     endif
 endfunction
 
-vnoremap <buffer> <leader>c :call Commenter() <cr>
-nnoremap <buffer> <leader>c :call Commenter() <cr>
+vnoremap <buffer> <leader>c :call YxyComment() <cr>
+nnoremap <buffer> <leader>c :call YxyComment() <cr>
 
 " VIM GENERAL SETTINGS ---------------------- {{{  
 augroup VIM
@@ -154,9 +159,21 @@ augroup filetype_vim
     autocmd FileType vim let b:comment_repr = '"' 
     autocmd FileType vim let b:comment_spaces = ' ' 
     " Add First document Line
-    autocmd FileType vim :iabbrev ssig " =============================================================================<cr>"   Name:        name<cr>"   Author:      Mathieu Rivier<cr>"   Version:     1.0<cr>"<cr>"   your descirption<cr>" =============================================================================
+    autocmd bufnewfile *.vim 0r ~/.vim/pack/yxyheader/vim.txt
     " Vim Header
     autocmd FileType vim nnoremap <buffer> <leader>h I" ########################### ##################################<esc>bi
+augroup END
+" }}}
+
+" Shell file settings ---------------------- {{{
+augroup filetype_shell
+    autocmd!
+    autocmd FileType sh setlocal foldmethod=marker
+    " Comment variables:
+    autocmd FileType sh let b:comment_repr = '#' 
+    autocmd FileType sh let b:comment_spaces = ' ' 
+    " Add First document Line
+    autocmd bufnewfile *.sh 0r ~/.vim/pack/yxyheader/shell_script.txt
 augroup END
 " }}}
 
@@ -168,7 +185,7 @@ augroup filetype_python
     autocmd FileType python setlocal shiftwidth=4
     autocmd FileType python setlocal softtabstop=4
     "  Add First document line
-    autocmd FileType python :iabbrev ssig """ <cr>    Authors: Mathieu Rivier<cr>    Description: <cr>"""
+    autocmd bufnewfile *.py 0r ~/.vim/pack/yxyheader/python.txt
     " Comment variables:
     autocmd FileType python let b:comment_repr = '#' 
     autocmd FileType python let b:comment_spaces = ' ' 
