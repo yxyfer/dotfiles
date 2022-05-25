@@ -42,6 +42,7 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
+# My Cutom Prompt
 source $CUSTOM/prompt.sh
 ########### User configuration ###############
 
