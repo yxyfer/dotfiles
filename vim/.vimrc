@@ -150,8 +150,9 @@ augroup END
 augroup filetype_vim
     autocmd!
     autocmd FileType vim setlocal foldmethod=marker
-    " Comment Line in Vim script
-    autocmd FileType vim nnoremap <buffer> <leader>c I" <esc>
+    " Comment variables:
+    autocmd FileType vim let b:comment_repr = '"' 
+    autocmd FileType vim let b:comment_spaces = ' ' 
     " Add First document Line
     autocmd FileType vim :iabbrev ssig " =============================================================================<cr>"   Name:        name<cr>"   Author:      Mathieu Rivier<cr>"   Version:     1.0<cr>"<cr>"   your descirption<cr>" =============================================================================
     " Vim Header
