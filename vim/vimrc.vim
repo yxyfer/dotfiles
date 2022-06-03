@@ -6,6 +6,24 @@
 "   My Current .vimrc file
 " ============================================================================= 
 
+" ########################### PLUG ##################################
+
+call plug#begin()
+" The default plugin directory will be as follows:
+"   - Vim (Linux/macOS): '~/.vim/plugged'
+
+" Make sure you use single quotes
+
+" On-demand loading
+" Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+
+" Unmanaged plugin (manually installed and updated)
+" Plug '~/my-prototype-plugin'
+
+Plug 'mindriot101/vim-yapf', { 'for': 'python' }
+
+" Initialize plugin system
+call plug#end()
 
 " ########################## PLUGIN SETTINGS #################################
 " Better highlighting in python
@@ -177,14 +195,16 @@ augroup filetype_shell
 augroup END
 " }}}
 function Lint()
-    let g:line = line(".")
-    "let l:win_view = winsaveview()
-    bufdo silent execute '%! ' . "yapf"
-    "echom g:line
-    bufdo e!
-    "bufdo execute g:line
-    "call winrestview(l:win_view)
-    "bufdo redraw!
+    let current_line = line('.')
+
+    " save current cur pos
+    let current_cursor = getpos(".")
+
+    " exec yapf
+    silent execute "0,$!" . "yapf"
+
+    " repos cursor
+    call setpos('.', current_cursor)
 endfunction
 
 " Python Files Settings ---------------------- {{{
@@ -214,7 +234,7 @@ augroup filetype_python
     autocmd FileType python :iabbrev <buffer> iff if:<left>
 
     " autoformat for python with black
-    " autocmd BufWritePost *.py silent execute ':!Yapf -q %'
+    autocmd BufWritePost *.py execute 'Yapf'
 augroup END
 " }}}
 
