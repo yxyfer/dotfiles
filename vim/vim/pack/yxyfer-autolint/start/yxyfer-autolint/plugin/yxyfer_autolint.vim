@@ -12,9 +12,11 @@
 function Linter(lang_linter)
     set noconfirm
     "execute 'normal! mm'
+    let g:line = line(".")
     bufdo silent execute '!' . a:lang_linter . ' %'
     silent execute 'edit! '
-    bufdo redraw!
+    " bufdo redraw!
+    bufdo execute g:line
     "command! normal! `m
     set confirm
 endfunction
@@ -24,7 +26,7 @@ endfunction
 " Info: The user can change the linter by changing the value of the global
 "       variable: g:py_linter
 if !exists("g:py_linter")
-    let g:py_linter = "black"
+    let g:py_linter = "yapf -q"
 endif
 
 
