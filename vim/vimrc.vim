@@ -176,28 +176,45 @@ augroup filetype_shell
     autocmd bufnewfile *.sh 0r ~/.vim/pack/yxyheader/shell_script.txt
 augroup END
 " }}}
+function Lint()
+    let g:line = line(".")
+    "let l:win_view = winsaveview()
+    bufdo silent execute '%! ' . "yapf"
+    "echom g:line
+    bufdo e!
+    "bufdo execute g:line
+    "call winrestview(l:win_view)
+    "bufdo redraw!
+endfunction
 
 " Python Files Settings ---------------------- {{{
 augroup filetype_python
     " Preventing autocommand to run multiple times
     autocmd!
+
     " Set tab options
     autocmd FileType python setlocal shiftwidth=4
     autocmd FileType python setlocal softtabstop=4
+
     "  Add First document line
     autocmd bufnewfile *.py 0r ~/.vim/pack/yxyheader/python.txt
+
     " Comment variables:
     autocmd FileType python let b:comment_repr = '#' 
     autocmd FileType python let b:comment_spaces = ' ' 
+
     " Set no wrap
     autocmd BufNewFile,BufRead *.py setlocal nowrap
+
     " Set fold indent
-    autocmd FileType python setlocal foldmethod=indent
-    autocmd FileType python setlocal foldignore=
+    " autocmd FileType python setlocal foldmethod=indent
+    " autocmd FileType python setlocal foldignore=
+
     " easy if
     autocmd FileType python :iabbrev <buffer> iff if:<left>
+
     " autoformat for python with black
-    "autocmd BufWritePre *.py execute ':Black'
+    " autocmd BufWritePost *.py silent execute ':!Yapf -q %'
 augroup END
 " }}}
 
