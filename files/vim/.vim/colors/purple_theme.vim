@@ -19,10 +19,11 @@ let colors_name="purple_theme"
 
 
 let s:black       = { "gui": "#282c34", "cterm": "236" }
+let s:gray        = { "gui": "#303030", "cterm": "237" }
 let s:red         = { "gui": "#e06c75", "cterm": "168" }
-let s:green       = { "gui": "#98c379", "cterm": "114" }
-let s:yellow      = { "gui": "#e5c07b", "cterm": "215" }
-let s:blue        = { "gui": "#61afef", "cterm": "75"  }
+let s:green       = { "gui": "#98c379", "cterm": "108" }
+let s:yellow      = { "gui": "#e5c07b", "cterm": "179" }
+let s:blue        = { "gui": "#61afef", "cterm": "110" }
 let s:purple      = { "gui": "#A95AA5", "cterm": "176" }
 let s:cyan        = { "gui": "#56b6c2", "cterm": "73"  }
 let s:white       = { "gui": "#dcdfe4", "cterm": "188" }
@@ -38,21 +39,27 @@ let s:non_text    = { "gui": "#373C45", "cterm": "239" }
 let s:cursor_line = { "gui": "#313640", "cterm": "237" }
 let s:color_col   = { "gui": "#313640", "cterm": "237" }
 
+let s:pop_up_fg   = { "gui": "#b2b2b2", "cterm": "249" }
+let s:pop_up_bg   = s:gray
+
 let s:selection   = { "gui": "#474e5d", "cterm": "239" }
 let s:vertsplit   = { "gui": "#313640", "cterm": "237" }
 
 
-function! s:h(group, fg, bg, attr)
+function! s:highlighter(group, fg, bg, attr)
+
   if type(a:fg) == type({})
     exec "hi " . a:group . " guifg=" . a:fg.gui . " ctermfg=" . a:fg.cterm
   else
     exec "hi " . a:group . " guifg=NONE cterm=NONE"
   endif
+
   if type(a:bg) == type({})
     exec "hi " . a:group . " guibg=" . a:bg.gui . " ctermbg=" . a:bg.cterm
   else
     exec "hi " . a:group . " guibg=NONE ctermbg=NONE"
   endif
+
   if a:attr != ""
     exec "hi " . a:group . " gui=" . a:attr . " cterm=" . a:attr
   else
@@ -62,136 +69,136 @@ endfun
 
 
 " User interface colors {
-call s:h("Normal", s:fg, s:bg, "")
+call s:highlighter("Normal", s:fg, s:bg, "")
 
-call s:h("Cursor", s:bg, s:purple, "")
-call s:h("CursorColumn", "", s:cursor_line, "")
-call s:h("CursorLine", "", s:cursor_line, "")
+call s:highlighter("Cursor", s:bg, s:purple, "")
+call s:highlighter("CursorColumn", "", s:cursor_line, "")
+call s:highlighter("CursorLine", "", s:cursor_line, "")
 
-call s:h("LineNr", s:gutter_fg, s:gutter_bg, "")
-call s:h("CursorLineNr", s:fg, "", "")
+call s:highlighter("LineNr", s:gutter_fg, s:gutter_bg, "")
+call s:highlighter("CursorLineNr", s:fg, "", "")
 
-call s:h("DiffAdd", s:green, "", "")
-call s:h("DiffChange", s:yellow, "", "")
-call s:h("DiffDelete", s:red, "", "")
-call s:h("DiffText", s:blue, "", "")
+call s:highlighter("DiffAdd", s:black, s:green, "")
+call s:highlighter("DiffChange", s:black, s:yellow, "")
+call s:highlighter("DiffDelete", s:black, s:red, "")
+call s:highlighter("DiffText", s:black, s:blue, "")
 
-call s:h("IncSearch", s:bg, s:yellow, "")
-call s:h("Search", s:bg, s:yellow, "")
+call s:highlighter("IncSearch", s:bg, s:yellow, "")
+call s:highlighter("Search", s:bg, s:yellow, "")
 
-call s:h("ErrorMsg", s:fg, "", "")
-call s:h("ModeMsg", s:fg, "", "")
-call s:h("MoreMsg", s:fg, "", "")
-call s:h("WarningMsg", s:red, "", "")
-call s:h("Question", s:purple, "", "")
+call s:highlighter("ErrorMsg", s:fg, "", "")
+call s:highlighter("ModeMsg", s:bg, "", "")
+call s:highlighter("MoreMsg", s:fg, "", "")
+call s:highlighter("WarningMsg", s:red, "", "")
+call s:highlighter("Question", s:purple, "", "")
 
-call s:h("Pmenu", s:bg, s:fg, "")
-call s:h("PmenuSel", s:fg, s:blue, "")
-call s:h("PmenuSbar", "", s:selection, "")
-call s:h("PmenuThumb", "", s:fg, "")
+call s:highlighter("Pmenu", s:pop_up_fg, s:pop_up_bg, "")
+call s:highlighter("PmenuSel", s:black, s:purple, "")
+call s:highlighter("PmenuSbar", "", s:white, "")
+call s:highlighter("PmenuThumb", "", s:white, "")
 
-call s:h("SpellBad", s:red, "", "")
-call s:h("SpellCap", s:yellow, "", "")
-call s:h("SpellLocal", s:yellow, "", "")
-call s:h("SpellRare", s:yellow, "", "")
+call s:highlighter("SpellBad", s:red, "", "")
+call s:highlighter("SpellCap", s:yellow, "", "")
+call s:highlighter("SpellLocal", s:yellow, "", "")
+call s:highlighter("SpellRare", s:yellow, "", "")
 
-call s:h("StatusLine", s:purple, s:cursor_line, "")
-call s:h("StatusLineNC", s:comment_fg, s:cursor_line, "")
-call s:h("TabLine", s:comment_fg, s:cursor_line, "")
-call s:h("TabLineFill", s:comment_fg, s:cursor_line, "")
-call s:h("TabLineSel", s:fg, s:bg, "")
+call s:highlighter("StatusLine", s:purple, s:cursor_line, "")
+call s:highlighter("StatusLineNC", s:comment_fg, s:cursor_line, "")
+call s:highlighter("TabLine", s:comment_fg, s:cursor_line, "")
+call s:highlighter("TabLineFill", s:comment_fg, s:cursor_line, "")
+call s:highlighter("TabLineSel", s:fg, s:pop_up_bg, "")
 
-call s:h("Visual", "", s:selection, "")
-call s:h("VisualNOS", "", s:selection, "")
+call s:highlighter("Visual", "", s:selection, "")
+call s:highlighter("VisualNOS", "", s:selection, "")
 
-call s:h("ColorColumn", "", s:color_col, "")
-call s:h("Conceal", s:fg, "", "")
-call s:h("Directory", s:purple, "", "")
-call s:h("VertSplit", s:vertsplit, s:vertsplit, "")
-call s:h("Folded", s:fg, "", "")
-call s:h("FoldColumn", s:fg, "", "")
-call s:h("SignColumn", s:fg, "", "")
+call s:highlighter("ColorColumn", "", s:color_col, "")
+call s:highlighter("Conceal", s:fg, "", "")
+call s:highlighter("Directory", s:purple, "", "")
+call s:highlighter("VertSplit", s:vertsplit, s:vertsplit, "")
+call s:highlighter("Folded", s:fg, "", "")
+call s:highlighter("FoldColumn", s:fg, "", "")
+call s:highlighter("SignColumn", s:fg, "", "")
 
-call s:h("MatchParen", s:purple, "", "underline")
-call s:h("SpecialKey", s:fg, "", "")
-call s:h("Title", s:green, "", "")
-call s:h("WildMenu", s:fg, "", "")
+call s:highlighter("MatchParen", s:purple, "", "underline")
+call s:highlighter("SpecialKey", s:fg, "", "")
+call s:highlighter("Title", s:green, "", "")
+call s:highlighter("WildMenu", s:fg, "", "")
 " }
 
 
 " Syntax colors {
 " Whitespace is defined in Neovim, not Vim.
 " See :help hl-Whitespace and :help hl-SpecialKey
-call s:h("Whitespace", s:non_text, "", "")
-call s:h("NonText", s:non_text, "", "")
-call s:h("Comment", s:comment_fg, "", "")
-call s:h("Constant", s:yellow, "", "")
-call s:h("String", s:green, "", "")
-call s:h("Character", s:green, "", "")
-call s:h("Number", s:yellow, "", "")
-call s:h("Boolean", s:yellow, "", "")
-call s:h("Float", s:yellow, "", "")
+call s:highlighter("Whitespace", s:non_text, "", "")
+call s:highlighter("NonText", s:non_text, "", "")
+call s:highlighter("Comment", s:comment_fg, "", "")
+call s:highlighter("Constant", s:yellow, "", "")
+call s:highlighter("String", s:green, "", "")
+call s:highlighter("Character", s:green, "", "")
+call s:highlighter("Number", s:yellow, "", "")
+call s:highlighter("Boolean", s:yellow, "", "")
+call s:highlighter("Float", s:yellow, "", "")
 
-call s:h("Identifier", s:red, "", "")
-call s:h("Function", s:blue, "", "")
-call s:h("Statement", s:purple, "", "")
+call s:highlighter("Identifier", s:red, "", "")
+call s:highlighter("Function", s:blue, "", "")
+call s:highlighter("Statement", s:purple, "", "")
 
-call s:h("Conditional", s:purple, "", "")
-call s:h("Repeat", s:purple, "", "")
-call s:h("Label", s:purple, "", "")
-call s:h("Operator", s:purple, "", "")
-call s:h("Keyword", s:cyan, "", "")
-call s:h("Exception", s:purple, "", "")
+call s:highlighter("Conditional", s:purple, "", "")
+call s:highlighter("Repeat", s:purple, "", "")
+call s:highlighter("Label", s:purple, "", "")
+call s:highlighter("Operator", s:purple, "", "")
+call s:highlighter("Keyword", s:cyan, "", "")
+call s:highlighter("Exception", s:purple, "", "")
 
-call s:h("PreProc", s:yellow, "", "")
-call s:h("Include", s:purple, "", "")
-call s:h("Define", s:purple, "", "")
-call s:h("Macro", s:yellow, "", "")
-call s:h("PreCondit", s:purple, "", "")
+call s:highlighter("PreProc", s:yellow, "", "")
+call s:highlighter("Include", s:purple, "", "")
+call s:highlighter("Define", s:purple, "", "")
+call s:highlighter("Macro", s:yellow, "", "")
+call s:highlighter("PreCondit", s:purple, "", "")
 
-call s:h("Type", s:cyan, "", "")
-call s:h("StorageClass", s:yellow, "", "")
-call s:h("Structure", s:purple, "", "")
-call s:h("Typedef", s:blue, "", "")
+call s:highlighter("Type", s:cyan, "", "")
+call s:highlighter("StorageClass", s:yellow, "", "")
+call s:highlighter("Structure", s:purple, "", "")
+call s:highlighter("Typedef", s:blue, "", "")
 
-call s:h("Special", s:blue, "", "")
-call s:h("SpecialChar", s:yellow, "", "")
-call s:h("Tag", s:fg, "", "")
-call s:h("Delimiter", s:fg, "", "")
-call s:h("SpecialComment", s:fg, "", "")
-call s:h("Debug", s:fg, "", "")
-call s:h("Underlined", s:fg, "", "")
-call s:h("Ignore", s:fg, "", "")
-call s:h("Error", s:red, s:gutter_bg, "")
-call s:h("Todo", s:white, "", "")
+call s:highlighter("Special", s:blue, "", "")
+call s:highlighter("SpecialChar", s:yellow, "", "")
+call s:highlighter("Tag", s:fg, "", "")
+call s:highlighter("Delimiter", s:fg, "", "")
+call s:highlighter("SpecialComment", s:fg, "", "")
+call s:highlighter("Debug", s:fg, "", "")
+call s:highlighter("Underlined", s:fg, "", "")
+call s:highlighter("Ignore", s:fg, "", "")
+call s:highlighter("Error", s:red, s:gutter_bg, "")
+call s:highlighter("Todo", s:white, "", "")
 " }
 
 
 " Plugins {
 " GitGutter
-call s:h("GitGutterAdd", s:green, s:gutter_bg, "")
-call s:h("GitGutterDelete", s:red, s:gutter_bg, "")
-call s:h("GitGutterChange", s:yellow, s:gutter_bg, "")
-call s:h("GitGutterChangeDelete", s:red, s:gutter_bg, "")
+call s:highlighter("GitGutterAdd", s:green, s:gutter_bg, "")
+call s:highlighter("GitGutterDelete", s:red, s:gutter_bg, "")
+call s:highlighter("GitGutterChange", s:yellow, s:gutter_bg, "")
+call s:highlighter("GitGutterChangeDelete", s:red, s:gutter_bg, "")
 " Fugitive
-call s:h("diffAdded", s:green, "", "")
-call s:h("diffRemoved", s:red, "", "")
+call s:highlighter("diffAdded", s:green, "", "")
+call s:highlighter("diffRemoved", s:red, "", "")
 " }
 
 
 " Git {
-call s:h("gitcommitComment", s:comment_fg, "", "")
-call s:h("gitcommitUnmerged", s:red, "", "")
-call s:h("gitcommitOnBranch", s:fg, "", "")
-call s:h("gitcommitBranch", s:purple, "", "")
-call s:h("gitcommitDiscardedType", s:red, "", "")
-call s:h("gitcommitSelectedType", s:green, "", "")
-call s:h("gitcommitHeader", s:fg, "", "")
-call s:h("gitcommitUntrackedFile", s:cyan, "", "")
-call s:h("gitcommitDiscardedFile", s:red, "", "")
-call s:h("gitcommitSelectedFile", s:green, "", "")
-call s:h("gitcommitUnmergedFile", s:yellow, "", "")
-call s:h("gitcommitFile", s:fg, "", "")
+call s:highlighter("gitcommitComment", s:comment_fg, "", "")
+call s:highlighter("gitcommitUnmerged", s:red, "", "")
+call s:highlighter("gitcommitOnBranch", s:fg, "", "")
+call s:highlighter("gitcommitBranch", s:purple, "", "")
+call s:highlighter("gitcommitDiscardedType", s:red, "", "")
+call s:highlighter("gitcommitSelectedType", s:green, "", "")
+call s:highlighter("gitcommitHeader", s:fg, "", "")
+call s:highlighter("gitcommitUntrackedFile", s:cyan, "", "")
+call s:highlighter("gitcommitDiscardedFile", s:red, "", "")
+call s:highlighter("gitcommitSelectedFile", s:green, "", "")
+call s:highlighter("gitcommitUnmergedFile", s:yellow, "", "")
+call s:highlighter("gitcommitFile", s:fg, "", "")
 hi link gitcommitNoBranch gitcommitBranch
 hi link gitcommitUntracked gitcommitComment
 hi link gitcommitDiscarded gitcommitComment

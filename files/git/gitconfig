@@ -1,7 +1,7 @@
 [user]
-	name = John Appleseed
-	email = john.appleseed@apple.fr
-	username = john.apppleseed
+	name = mathieu.rivier
+	email = mathieu.rivier@epita.fr
+	username = yxyfer
 [core]
 	excludesfile = ~/.gitignore
 	editor = vim

@@ -69,16 +69,25 @@ export PGDATA="$HOME/postgres_data"
 
 export JAVA_8_HOME=$(/usr/libexec/java_home -v1.8)
 export JAVA_11_HOME=$(/usr/libexec/java_home -v11)
-export JAVA_11_HOME=$(/Library/Java/JavaVirtualMachines/openjdk-11.0.9.1+1/Contents/Home)
 
 alias java8='export JAVA_HOME=$JAVA_8_HOME; java -version'
 alias java11='export JAVA_HOME=$JAVA_11_HOME; java -version'
+
+
+# Python Alias
+
+alias python='python3'
+
+# Jupyter Lab alias
+
+alias lab='jupyter lab'
 
 # SPARK setup
 export SPARK_HOME="/usr/local/Cellar/apache-spark/3.2.1/SPARK"
 
 # Python setup
 export PATH="/usr/local/opt/python@3.9/bin:$PATH"
+export PATH="$PATH:/Users/mathieu.rivier/Library/Application Support/Coursier/bin"
 
 # PlaidML setup
 export PLAIDML_NATIVE_PATH=/usr/local/lib/libplaidml.dylib
