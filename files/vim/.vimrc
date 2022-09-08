@@ -1,16 +1,48 @@
 " =============================================================================
 "   Name:        .vimrc
-"   Author:      Mathieu Rivier
+"   Author:      Mathieu Rivier (yxyfer)
 "   Version:     1.0
 "
 "   My Current .vimrc file
 " ============================================================================= 
 
+" ########################### PLUG ##################################
+
+function! BuildYCM(info)
+  " info is a dictionary with 3 fields
+  " - name:   name of the plugin
+  " - status: 'installed', 'updated', or 'unchanged'
+  " - force:  set on PlugInstall! or PlugUpdate!
+  if a:info.status == 'installed' || a:info.force
+    !./install.py
+  endif
+endfunction
+
+call plug#begin()
+" The default plugin directory will be as follows:
+"   - Vim (Linux/macOS): '~/.vim/plugged'
+
+" Make sure you use single quotes
+
+" On-demand loading
+" Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+
+" Unmanaged plugin (manually installed and updated)
+" Plug '~/my-prototype-plugin'
+
+Plug 'mindriot101/vim-yapf', { 'for': 'python' }
+
+Plug 'ycm-core/YouCompleteMe', { 'do': function('BuildYCM') }
+
+" Initialize plugin system
+call plug#end()
 
 " ########################## PLUGIN SETTINGS #################################
 " Better highlighting in python
 "let g:python_highlight_all = 1
 
+" Remove auto opening preview YCM
+set completeopt-=preview
 
 " ########################## MAIN  SETTINGS ###################################
 " Remove Vim swap files
@@ -112,19 +144,24 @@ normal! F)vi(<cr>
 
 " ########################### STATUS LINE ##################################
 
+" Showing the Status line
 set laststatus=2
-set statusline=%f         " Path to the file
-set statusline+=%=        " Switch to the right side
-set statusline+=%y\       " Filetype of the file
-set statusline+=[%04l
-set statusline+=/         " Separator
-set statusline+=%4L]\      " Total lines
+" Path to the file
+set statusline=%f
+" Switch to the right side
+set statusline+=%=
+" Show modified sign
+set statusline+=%m\  
+" Filetype of the file
+set statusline+=%y\ 
+" Show the line number and total line
+set statusline+=[%03P]
 
 
 " ########################### FileType Settings ##################################
 " Use za to fold and unfold
 
-function! Commenter()
+function! YxyComment()
     let l:cur = match(getline('.'), '\S')
     let l:f_letter = strpart(getline("."), l:cur, 1)
 
@@ -135,8 +172,8 @@ function! Commenter()
     endif
 endfunction
 
-vnoremap <buffer> <leader>c :call Commenter() <cr>
-nnoremap <buffer> <leader>c :call Commenter() <cr>
+vnoremap <buffer> <leader>c :call YxyComment() <cr>
+nnoremap <buffer> <leader>c :call YxyComment() <cr>
 
 " VIM GENERAL SETTINGS ---------------------- {{{  
 augroup VIM
@@ -150,36 +187,85 @@ augroup END
 augroup filetype_vim
     autocmd!
     autocmd FileType vim setlocal foldmethod=marker
-    " Comment Line in Vim script
-    autocmd FileType vim nnoremap <buffer> <leader>c I" <esc>
+    " Comment variables:
+    autocmd FileType vim let b:comment_repr = '"' 
+    autocmd FileType vim let b:comment_spaces = ' ' 
     " Add First document Line
-    autocmd FileType vim :iabbrev ssig " =============================================================================<cr>"   Name:        name<cr>"   Author:      Mathieu Rivier<cr>"   Version:     1.0<cr>"<cr>"   your descirption<cr>" =============================================================================
+    autocmd bufnewfile *.vim 0r ~/.vim/pack/yxyheader/vim.txt
     " Vim Header
     autocmd FileType vim nnoremap <buffer> <leader>h I" ########################### ##################################<esc>bi
 augroup END
 " }}}
 
+" Shell file settings ---------------------- {{{
+augroup filetype_shell
+    autocmd!
+    autocmd FileType sh setlocal foldmethod=marker
+    " Comment variables:
+    autocmd FileType sh let b:comment_repr = '#' 
+    autocmd FileType sh let b:comment_spaces = ' ' 
+    " Add First document Line
+    autocmd bufnewfile *.sh 0r ~/.vim/pack/yxyheader/shell_script.txt
+augroup END
+" }}}
+function! Lint()
+    let current_line = line('.')
+
+    " save current cur pos
+    let current_cursor = getpos(".")
+
+    " exec yapf
+    autocmd Filetype python silent execute "0,$!" . "yapf"
+    autocmd Filetype json silent execute ":%!jq ."
+
+    " repos cursor
+    call setpos('.', current_cursor)
+endfunction
+
+" Not Working
+function! FormatJson()
+python << EOF
+import vim
+import json
+try:
+    buf = vim.current.buffer
+    json_content = '\n'.join(buf[:])
+    content = json.loads(json_content)
+    sorted_content = json.dumps(content, indent=4, sort_keys=True)
+    buf[:] = sorted_content.split('\n')
+except Exception, e:
+    print e
+EOF
+endfunction
+
 " Python Files Settings ---------------------- {{{
 augroup filetype_python
     " Preventing autocommand to run multiple times
     autocmd!
+
     " Set tab options
     autocmd FileType python setlocal shiftwidth=4
     autocmd FileType python setlocal softtabstop=4
+
     "  Add First document line
-    autocmd FileType python :iabbrev ssig """ <cr>    Authors: Mathieu Rivier<cr>    Description: <cr>"""
+    autocmd bufnewfile *.py 0r ~/.vim/pack/yxyheader/python.txt
+
     " Comment variables:
     autocmd FileType python let b:comment_repr = '#' 
     autocmd FileType python let b:comment_spaces = ' ' 
+
     " Set no wrap
     autocmd BufNewFile,BufRead *.py setlocal nowrap
+
     " Set fold indent
-    autocmd FileType python setlocal foldmethod=indent
-    autocmd FileType python setlocal foldignore=
+    " autocmd FileType python setlocal foldmethod=indent
+    " autocmd FileType python setlocal foldignore=
+
     " easy if
     autocmd FileType python :iabbrev <buffer> iff if:<left>
+
     " autoformat for python with black
-    "autocmd BufWritePre *.py execute ':Black'
+    autocmd BufWritePre *.py execute 'Yapf'
 augroup END
 " }}}
 
