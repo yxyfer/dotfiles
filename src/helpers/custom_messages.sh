@@ -1,6 +1,14 @@
-#!/bin/sh
-# AUTHOR: Mathieu Rivier
+#!/bin/sh 
+
+# """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+#
+# Name:		custom_messages
+# Author:	Mathieu Rivier
+# Version:	1.0
+#
 # Custom messages throughout my terminal.
+#
+# """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 info_message()
 {
