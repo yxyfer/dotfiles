@@ -7,6 +7,8 @@
   2.3 [git integration](#termi_git)  
 3.  [Vim Profile](#vim)  
   3.1 [Vim Installation](#vim_install)  
+  3.2 [YxyComment](#yxycomment)  
+  3.3 [YxyHeader](#yxyheader)  
 5.  [Git Profile](#git)
 5.  [About the Purple Themes](#purple_themes)
 
@@ -42,8 +44,8 @@
 
 
 #### <a name="config_sh"></a>Configs.sh
-- This is essentially the .zshrc.
-- Has some
+![alt text](https://github.com/yxyfer/dotfiles/blob/main/images/purple_theme_term.png "Terminal Theme Image")
+  - This is essentially the .zshrc.
 
 ### Custom folder
 #### <a name="prompt"></a>Prompt.sh
@@ -90,6 +92,19 @@ c_completion # installs C completion for YMC
 ```
   - You may want to change `$user_name` in `.vimrc` to your name for header generation
 
+### <a name="yxycomment"></a> YxyComment
+Super light comment manager for vim!
+
+  - As always: No fluf just the strictly necessary features.
+
+usage:
+  - Type in `,c` to comment a line.  
+  - Type in `,c` again to uncomment a line.  
+  - Normal selection operator work (you can thus comment/uncomment multiple lines at once when selecting before applying the shortcut)
+
+### <a name="yxyheader"></a> YxyHeader
+  - You may want to change `$user_name` in `.vimrc` to your name for header generation  
+  - Automatic Header generation for your coding files - Provides some information about what you are writing
 
 
 [ ] TODO add features
