@@ -1,4 +1,18 @@
-# Dotfiles 🚀 
+# Yxyfer's Dotfiles 🚀 
+
+1.  [Intro - Quick Install](#intro)
+2.  [Terminal Profile](#terminal)
+    2.1 [config.sh](#config_sh)
+    2.2 [custom prompt](#prompt)
+    2.3 [git integration](#termi_git)
+3.  [Vim Profile](#vim)
+5.  [Git Profile](#purple_themes)
+5.  [About the Purple Themes](#purple_themes)
+
+---
+
+## <a name="intro"></a> How to setup yxyfer's dotfiles easily?
+
 0. You don't need anything! --> Installs everything including Oh-my-zsh and the necessary plugins. ( you can add some by modifying the `install` file.
 1. go in the `dotfiles` folder.
   ```sh
@@ -20,7 +34,50 @@
 5. You're Done :) enjoy 
 
 
-## About the purple_theme themes 💜
+
+## <a name="terminal"></a>About the Terminal Profile ✍️ 
+
+[ ] TODO: Explain the different plugins
+
+
+#### <a name="configs_sh"></a>Configs.sh
+- This is essentially the .zshrc.
+- Has some
+
+### Custom folder
+#### <a name="prompt"></a>Prompt.sh
+- This contains my custom prompt :)
+```
+format: user.name dir-1/dir >   [...]   [git-branch] // Git branch on the right
+```
+![alt text](https://github.com/yxyfer/dotfiles/blob/main/images/prompt_term.png "Prompt Image")
+
+#### <a name="termi_git"></a>Git integration:
+   - new file red dot.
+   - Modified file orange dot.
+   - added file green dot.
+   - pull red down arrow
+   - Committed file blue up arrow
+   
+![alt text](https://github.com/yxyfer/dotfiles/blob/main/images/git_integration_prompt.png "Git integration Prompt Image")
+
+## <a name="vim"></a> About the Vim Profile
+
+![alt text](https://github.com/yxyfer/dotfiles/blob/main/images/purple_vim.png "Purple Vim")
+
+- My personal Vim profile
+- adds quite a lot of features.
+- Includes a custom and fast status line
+
+[ ] TODO add features
+
+## <a name="git"></a> About Git profile
+  - Installation:
+```sh
+    giti "John Appleseed" john@hello.com johnyyyyy
+```
+
+## <a name="purple_themes"></a> About the purple_theme themes 💜
 
 ![alt text](https://github.com/yxyfer/dotfiles/blob/main/images/purple_theme_term.png "Terminal Theme Image")
 
@@ -31,45 +88,3 @@
 - You will notice that the terminal theme is a bit darker than the vim theme because otherwise I had trouble differentiating them...
 - they are easy on the eyes :).
 
-
-## About the Terminal Profile ✍️ 
-
-[ ] TODO: Explain the different plugins
-
-
-#### Configs.sh
-- This is essentially the .zshrc.
-- Has some
-
-### Custom folder
-#### Prompt.sh
-- This contains my custom prompt :)
-```
-format: user.name dir-1/dir >   [...]   [git-branch] // Git branch on the right
-```
-![alt text](https://github.com/yxyfer/dotfiles/blob/main/images/prompt_term.png "Prompt Image")
-
-#### Git integration:
-   - new file red dot.
-   - Modified file orange dot.
-   - added file green dot.
-   - pull red down arrow
-   - Committed file blue up arrow
-   
-![alt text](https://github.com/yxyfer/dotfiles/blob/main/images/git_integration_prompt.png "Git integration Prompt Image")
-
-## About the Vim Profile
-
-![alt text](https://github.com/yxyfer/dotfiles/blob/main/images/purple_vim.png "Purple Vim")
-
-- My personal Vim profile
-- adds quite a lot of features.
-- Includes a custom and fast status line
-
-[ ] TODO add features
-
-## About Git profile 
-  - Installation:
-```sh
-    giti "John Appleseed" john@hello.com johnyyyyy
-```
