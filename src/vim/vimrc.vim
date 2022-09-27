@@ -1,7 +1,7 @@
 " =============================================================================
 "   Name:        .vimrc
 "   Author:      Mathieu Rivier (yxyfer)
-"   Version:     4.2
+"   Version:     4.3
 "
 "   My Current .vimrc file
 " ============================================================================= 
@@ -161,23 +161,32 @@ set statusline+=%y\
 " Show the line number and total line
 set statusline+=[%03P]
 
+" ########################### YxyFunctions ##################################
 
-" ########################### FileType Settings ##################################
-" Use za to fold and unfold
-
+" use ,c to comment and uncomment lines or even selections of lines
 function! YxyComment()
     let l:cur = match(getline('.'), '\S')
-    let l:f_letter = strpart(getline("."), l:cur, 1)
+    if len(b:comment_repr) == 1
+        let l:f_letter = strpart(getline("."), l:cur, 1)
+    else 
+        " if languages with more than 2 comment repr add conditions
+        let l:f_letter = strpart(getline("."), l:cur, 2)
+    endif
 
     if l:f_letter == b:comment_repr
-        exe 'norm ^x' . len(b:comment_spaces). 'x'
+        exe 'norm ^x' . len(b:comment_repr) . 'x'
     else
-        exe 'norm I' .b:comment_repr . b:comment_spaces
+        exe 'norm I' . b:comment_repr . b:comment_spaces
     endif
 endfunction
 
 vnoremap <buffer> <leader>c :call YxyComment() <cr>
 nnoremap <buffer> <leader>c :call YxyComment() <cr>
+
+
+" ########################### FileType Settings ##################################
+" Use za to fold and unfold
+
 
 " VIM GENERAL SETTINGS ---------------------- {{{  
 augroup VIM
@@ -219,35 +228,7 @@ augroup filetype_shell
     " Add First document Line
 augroup END
 " }}}
-function! Lint()
-    let current_line = line('.')
 
-    " save current cur pos
-    let current_cursor = getpos(".")
-
-    " exec yapf
-    autocmd Filetype python silent execute "0,$!" . "yapf"
-    autocmd Filetype json silent execute ":%!jq ."
-
-    " repos cursor
-    call setpos('.', current_cursor)
-endfunction
-
-" Not Working
-function! FormatJson()
-python << EOF
-import vim
-import json
-try:
-    buf = vim.current.buffer
-    json_content = '\n'.join(buf[:])
-    content = json.loads(json_content)
-    sorted_content = json.dumps(content, indent=4, sort_keys=True)
-    buf[:] = sorted_content.split('\n')
-except Exception, e:
-    print e
-EOF
-endfunction
 
 " C Files Settings ---------------------- {{{
 augroup filetype_c
@@ -324,3 +305,34 @@ augroup END
 
 " for resetting the splitsVimResized
 
+" EXPERIMENTAL
+"
+
+function! Lint()
+    let current_line = line('.')
+
+    " save current cur pos
+    let current_cursor = getpos(".")
+
+    " exec yapf
+    autocmd Filetype python silent execute "0,$!" . "yapf"
+    autocmd Filetype json silent execute ":%!jq ."
+
+    " repos cursor
+    call setpos('.', current_cursor)
+endfunction
+" Not Working
+function! FormatJson()
+python << EOF
+import vim
+import json
+try:
+    buf = vim.current.buffer
+    json_content = '\n'.join(buf[:])
+    content = json.loads(json_content)
+    sorted_content = json.dumps(content, indent=4, sort_keys=True)
+    buf[:] = sorted_content.split('\n')
+except Exception, e:
+    print e
+EOF
+endfunction
