@@ -36,6 +36,10 @@ Plug 'ycm-core/YouCompleteMe', { 'do': function('BuildYCM') }
 
 " Initialize plugin system
 call plug#end()
+" ########################### USERNAME ##################################
+
+" User name for header name 
+let $user_name= 'Mathieu Rivier'
 
 " ########################## PLUGIN SETTINGS #################################
 " Better highlighting in python
@@ -183,6 +187,14 @@ augroup VIM
 augroup END
 " }}}
 
+augroup HEADERS
+    autocmd!
+    " Add First document Line
+    autocmd bufnewfile *.vim 0r !~/dotfiles/src/vim/yxyheader.sh "vim" $user_name
+    autocmd bufnewfile *.sh 0r !~/dotfiles/src/vim/yxyheader.sh "sh" $user_name
+    autocmd bufnewfile *.py 0r !~/dotfiles/src/vim/yxyheader.sh "py" $user_name
+augroup END
+
 " Vimscript file settings ---------------------- {{{
 augroup filetype_vim
     autocmd!
@@ -190,12 +202,12 @@ augroup filetype_vim
     " Comment variables:
     autocmd FileType vim let b:comment_repr = '"' 
     autocmd FileType vim let b:comment_spaces = ' ' 
-    " Add First document Line
-    autocmd bufnewfile *.vim 0r ~/.vim/pack/yxyheader/vim.txt
+
     " Vim Header
     autocmd FileType vim nnoremap <buffer> <leader>h I" ########################### ##################################<esc>bi
 augroup END
 " }}}
+
 
 " Shell file settings ---------------------- {{{
 augroup filetype_shell
@@ -205,7 +217,6 @@ augroup filetype_shell
     autocmd FileType sh let b:comment_repr = '#' 
     autocmd FileType sh let b:comment_spaces = ' ' 
     " Add First document Line
-    autocmd bufnewfile *.sh 0r ~/.vim/pack/yxyheader/shell_script.txt
 augroup END
 " }}}
 function! Lint()
@@ -274,9 +285,6 @@ augroup filetype_python
     " Set tab options
     autocmd FileType python setlocal shiftwidth=4
     autocmd FileType python setlocal softtabstop=4
-
-    "  Add First document line
-    autocmd bufnewfile *.py 0r ~/.vim/pack/yxyheader/python.txt
 
     " Comment variables:
     autocmd FileType python let b:comment_repr = '#' 
