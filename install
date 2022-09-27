@@ -1,50 +1,28 @@
-#!/bin/sh
-# AUTHOR: Mathieu Rivier
-# INSTALL dotfiles
-# use those commands from the Coding setup folder
-source $(pwd)/files/terminal/custom/custom_messages.sh
+#!/bin/bash 
 
-CONFIGS=$(pwd)/files
+# """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+#
+# Name: install
+# Author:   Mathieu Rivier (yxyfer)
+# Version:  4.5
+#
+# Install commands for the different elements of the dotfiles
+# /!\ Use those commands from the dotfiles folder
+#
+# """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+# Loading paths
+CONFIGS=$(pwd)/src
 VIM_PATH=$CONFIGS/vim
 TERM_CONFIG_PATH=$CONFIGS/terminal/zshrc_config.sh
 
-# INSTALLATION FUNCTIONS
-install_f_git()
-{
-    # $1 = name
-    # $2 = path
-    # $3 = link
-    if [ -d $2 ]; then
-        pass_message "$1 already installed."
-        return 0
-    else
-        git clone $3 $2
-        check_success_message "$?" "installing $1"
-    fi
-}
+# Loading helper functions
+source $CONFIGS/helpers/custom_messages.sh
+source $CONFIGS/helpers/install_scripts.sh
 
-link_f_git()
-{
-    # $1 = name
-    # $2 = path
-    # $3 = link
-    if [ -L $1 ]; then
-        rm -i $1
-        if [ -e $1 ]; then
-            fail_message "failed deleting the link to $1"
-            return 1
-        else
-            pass_message "successfully deleted old link to $1"
-        fi
-    elif [ -e $1 ]; then
-        mkdir ~/.old_confs
-        mv $1 ~/.old_confs/
-        check_success_message "$?" "LINK" "Moving $1 to ~/.old_confs"
-    fi
-
-    ln -s $2 $1
-    check_success_message "$?" "successfully linked $2 to $1"
-}
+# User feedback when loaded
+pass_message "Loaded install commands"
 
 # INSTALLATION OF MY SETUP :)
 termi()
@@ -52,7 +30,6 @@ termi()
     info_message "INST" "Terminal Config"
     STATUS=0
 
-    # Install from remote
     # Instqll Oh-my-zsh
     install_f_git "oh-my-zsh" ~/.oh-my-zsh "git@github.com:ohmyzsh/ohmyzsh.git"
 
@@ -86,13 +63,13 @@ vimi()
     info_message "INST" "Installing Vim Config"
     STATUS=0
 
-    install_f_git "Vundle" \
-                  $VIM_PATH/.vim/bundle/Vundle.vim \
-                  "https://github.com/VundleVim/Vundle.vim.git"
+    install_f_curl "Plug" \
+                   $VIM_PATH/vim/autoload/plug.vim \
+                   "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 
     # Adding vim links to home
-    link_f_git ~/.vim $VIM_PATH/.vim    ; STATUS=$(($? + STATUS))
-    link_f_git ~/.vimrc $VIM_PATH/.vimrc; STATUS=$(($? + STATUS))
+    link_f_git ~/.vim $VIM_PATH/vim    ; STATUS=$(($? + STATUS))
+    link_f_git ~/.vimrc $VIM_PATH/vimrc.vim; STATUS=$(($? + STATUS))
     link_f_git ~/.style.yapf $VIM_PATH/.style.yapf; STATUS=$(($? + STATUS))
 
 
@@ -101,30 +78,33 @@ vimi()
 
 c_completion()
 {
-
-    info_message "INST" "Installing Vim Config"
+    info_message "INST" "Installing Vim C-lang Completion"
     STATUS=0
 
-    cd ~/.vim/bundle/YouCompleteMe
+    cd ~/.vim/plugged/YouCompleteMe
     git submodule update --init --recursive
     ./install.py --clangd-completer
     cd -
 
-    end_message $STATUS "installing vim config"
+    end_message $STATUS "Vim C-lang completion"
 }
 
 giti()
 {
+    if [ "$#" != "3" ]; then
+        fail_message "usage: giti user_name email pseudo"
+        exit 1
+    fi
+
     STATUS=0
     link_f_git ~/.gitconfig $CONFIGS/git/gitconfig; STATUS=$(($? + STATUS))
     link_f_git ~/.gitignore $CONFIGS/git/gitignore ; STATUS=$(($? + STATUS))
 
+    git config --global user.name $1
+    git config --global user.email $2
+    git config --global user.username $3
+
     end_message  $STATUS "installing git config"
-    info_message "Please replace your git name , mail and username"
-    echo "Using the following command:"
-    echo "git config --global user.name YOUR_NAME"
-    echo "git config --global user.email bla@bla.com"
-    echo "git config --global user.username YOUR_PSEUDO"
 }
 
 install_brew()
