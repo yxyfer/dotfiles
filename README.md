@@ -1,12 +1,12 @@
 # Yxyfer's Dotfiles 🚀 
 
 1.  [Intro - Quick Install](#intro)
-2.  [Terminal Profile](#terminal)
-    2.1 [config.sh](#config_sh)
-    2.2 [custom prompt](#prompt)
-    2.3 [git integration](#termi_git)
+2.  [Terminal Profile](#terminal)  
+  2.1 [config.sh](#config_sh)  
+  2.2 [custom prompt](#prompt)  
+  2.3 [git integration](#termi_git)  
 3.  [Vim Profile](#vim)
-5.  [Git Profile](#purple_themes)
+5.  [Git Profile](#git)
 5.  [About the Purple Themes](#purple_themes)
 
 ---
