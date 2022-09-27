@@ -5,8 +5,8 @@
   2.1 [config.sh](#config_sh)  
   2.2 [custom prompt](#prompt)  
   2.3 [git integration](#termi_git)  
-3.  [Vim Profile](#vim)
-  3.1 [Vim Installation](#vim_install)
+3.  [Vim Profile](#vim)  
+  3.1 [Vim Installation](#vim_install)  
 5.  [Git Profile](#git)
 5.  [About the Purple Themes](#purple_themes)
 
@@ -88,6 +88,7 @@ vim # Inside vim
 ```sh 
 c_completion # installs C completion for YMC
 ```
+  - You may want to change `$user_name` in `.vimrc` to your name for header generation
 
 
 
