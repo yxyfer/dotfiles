@@ -67,3 +67,9 @@ format: user.name dir-1/dir >   [...]   [git-branch] // Git branch on the right
 - Includes a custom and fast status line
 
 [ ] TODO add features
+
+## About Git profile 
+  - Installation:
+```sh
+    giti "John Appleseed" john@hello.com johnyyyyy
+```
