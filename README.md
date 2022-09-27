@@ -6,6 +6,7 @@
   2.2 [custom prompt](#prompt)  
   2.3 [git integration](#termi_git)  
 3.  [Vim Profile](#vim)
+  3.1 [Vim Installation](#vim_install)
 5.  [Git Profile](#git)
 5.  [About the Purple Themes](#purple_themes)
 
@@ -72,6 +73,23 @@ What everything means:
 - My personal Vim profile
 - adds quite a lot of features.
 - Includes a custom and fast status line
+
+### <a name="vim_install"></a> Install Vim Profile
+```sh
+cd ~/dotfiles
+source install
+vimi
+
+vim # Inside vim 
+:PlugInstall
+```
+
+  - If you code in C you might want to run the following command as well:
+```sh 
+c_completion # installs C completion for YMC
+```
+
+
 
 [ ] TODO add features
 
