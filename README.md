@@ -2,7 +2,7 @@
 0. You don't need anything! --> Installs everything including Oh-my-zsh and the necessary plugins. ( you can add some by modifying the `install` file.
 1. go in the `dotfiles` folder.
   ```sh
-    cd ~/dotfiles // if dotfiles is at your root. 
+    cd ~/dotfiles # if dotfiles is at your root. 
   ```
 2. source install
   ```sh
@@ -10,9 +10,9 @@
   ```
 3. multiple options: 
   ```sh
-    termi // to Install terminal profile
-    vimi  // to Install vim profile (includes custom purple_theme)
-    giti  // to Install git
+    termi # to Install terminal profile
+    vimi  # to Install vim profile (includes custom purple_theme)
+    giti  # to Install git
   ```
 4. if you're on a mac (with original terminal)
    
