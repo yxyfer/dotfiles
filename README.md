@@ -60,7 +60,7 @@ format: user.name dir-1/dir >   [...]   [git-branch] // Git branch on the right
 
 ## About the Vim Profile
 
-![alt text](https://github.com/yxyfer/dotfiles/blob/main/images/purple_theme_term.png "Purple Vim")
+![alt text](https://github.com/yxyfer/dotfiles/blob/main/images/purple_vim.png "Purple Vim")
 
 - My personal Vim profile
 - adds quite a lot of features.
