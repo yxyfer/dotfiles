@@ -40,29 +40,33 @@
 [ ] TODO: Explain the different plugins
 
 
-#### <a name="configs_sh"></a>Configs.sh
+#### <a name="config_sh"></a>Configs.sh
 - This is essentially the .zshrc.
 - Has some
 
 ### Custom folder
 #### <a name="prompt"></a>Prompt.sh
-- This contains my custom prompt :)
+![alt text](https://github.com/yxyfer/dotfiles/blob/main/images/prompt_term.png "Prompt Image")
+
+  - This is a fully custom prompt
+  - It's designed to be extremely fast and simple without any useless functionality
+
 ```
 format: user.name dir-1/dir >   [...]   [git-branch] // Git branch on the right
 ```
-![alt text](https://github.com/yxyfer/dotfiles/blob/main/images/prompt_term.png "Prompt Image")
 
 #### <a name="termi_git"></a>Git integration:
-   - new file red dot.
-   - Modified file orange dot.
-   - added file green dot.
-   - pull red down arrow
-   - Committed file blue up arrow
-   
 ![alt text](https://github.com/yxyfer/dotfiles/blob/main/images/git_integration_prompt.png "Git integration Prompt Image")
 
-## <a name="vim"></a> About the Vim Profile
+What everything means:
+  - new file red dot.
+  - Modified file orange dot.
+  - added file green dot.
+  - pull red down arrow
+  - Committed file blue up arrow
+   
 
+## <a name="vim"></a> About the Vim Profile
 ![alt text](https://github.com/yxyfer/dotfiles/blob/main/images/purple_vim.png "Purple Vim")
 
 - My personal Vim profile
@@ -78,7 +82,6 @@ format: user.name dir-1/dir >   [...]   [git-branch] // Git branch on the right
 ```
 
 ## <a name="purple_themes"></a> About the purple_theme themes 💜
-
 ![alt text](https://github.com/yxyfer/dotfiles/blob/main/images/purple_theme_term.png "Terminal Theme Image")
 
 - Two versions:
