@@ -1,7 +1,7 @@
 " =============================================================================
 "   Name:        .vimrc
 "   Author:      Mathieu Rivier (yxyfer)
-"   Version:     4.3
+"   Version:     4.4
 "
 "   My Current .vimrc file
 " ============================================================================= 
@@ -49,25 +49,22 @@ let $user_name= 'Mathieu Rivier'
 set completeopt-=preview
 
 " ########################## MAIN  SETTINGS ###################################
-" Remove Vim swap files
-set noswapfile
 
-" Set LEADER
-let mapleader=","
-
-"" To have the normal clipboard of the mac!
-"set clipboard=unnamed
-
-" Setting the Colour Scheme
-colorscheme purple_theme
-" Tell vim how to set the text depending on background
-set bg=dark
-
+set noswapfile    " Remove Vim swap files
+set encoding=utf-8 " Set Vim's default encoding
+set backspace=indent,eol,start  
+let mapleader="," " Set LEADER
 
 set number
 set ruler       " adds line and column number bottom right.
 set cursorline  " highlights the current line.
-syntax on       " Allows text keyword highlighting.
+
+syntax on                " Allows text keyword highlighting.
+colorscheme purple_theme " Setting the Colour Scheme
+set bg=dark              " Tell vim how to set the text depending on background
+
+"" To have the normal clipboard of the mac!
+"set clipboard=unnamed
 
 set nowrap
 set colorcolumn=80      " adds a colored line on the 80th character.
@@ -75,18 +72,18 @@ set colorcolumn=80      " adds a colored line on the 80th character.
 "                        " for trailing spaces.
 "set list listchars=tab:>-,trail:.
 
-" Set Vim's default encoding
-set encoding=utf-8
 
-set backspace=indent,eol,start "?
+" ########################### TIMEOUTS ##################################
+" for when you use a command update status bar
 
-"set ttimeout		" time out for key codes
-"set ttimeoutlen=0	" wait up to 100ms after Esc for special key
+" set ttimeout		" time out for key codes
+" set ttimeoutlen=0	" wait up to 100ms after Esc for special key
+" set updatetime=300
+" set shortmess+=c
 
-"set updatetime=300
-"set shortmess+=c
 
 " ########################### SEARCH ##################################
+
 " Set the highlights when searching
 set hlsearch incsearch
 " Set the search without looking at cases
@@ -96,16 +93,20 @@ set smartcase
 
 
 " ########################### TABS ##################################
+
 set expandtab       " replaces tabs with (softtabstop amount of) spaces.
 set softtabstop=4   " number of spaces for a tab.
 set shiftwidth=4
 
+
 " ########################### INDENTATION ##################################
+
 set autoindent  " Indenting to above line
 set smartindent  " automatically indent from language 
 
 
 " ########################### NAVIGATION ##################################
+
 set scrolloff=7 " number of lines to keep context when scrolling
 
 "" Tabs:
@@ -130,13 +131,14 @@ noremap <Down> <Nop>
 noremap <Left> <Nop>
 noremap <Right> <Nop>
 
+
 " ########################### MAPPINGS ##################################
+
 " Enable editing fast vimrc
 nnoremap <leader>ev :vsplit ~/.vimrc<cr>
 
 " Enable sourcing the vimrc easily
 nnoremap <leader>sv :source ~/.vimrc<cr>
-
 
 " Make a command awaiting mapping it enables acting on the inside of (
 onoremap p i(
@@ -151,7 +153,7 @@ normal! F)vi(<cr>
 " Showing the Status line
 set laststatus=2
 " Path to the file
-set statusline=%f
+set statusline=\ %f
 " Switch to the right side
 set statusline+=%=
 " Show modified sign
@@ -161,8 +163,10 @@ set statusline+=%y\
 " Show the line number and total line
 set statusline+=[%03P]
 
+
 " ########################### YxyFunctions ##################################
 
+" YxyComment ---------------------- {{{
 " use ,c to comment and uncomment lines or even selections of lines
 function! YxyComment()
     let l:cur = match(getline('.'), '\S')
@@ -182,11 +186,21 @@ endfunction
 
 vnoremap <buffer> <leader>c :call YxyComment() <cr>
 nnoremap <buffer> <leader>c :call YxyComment() <cr>
+" }}}
+
+" YxyHeader ---------------------- {{{
+augroup YxyHeader
+    autocmd!
+    " Add First document Line
+    autocmd bufnewfile *.vim 0r !~/dotfiles/src/vim/yxyheader.sh "vim" $user_name
+    autocmd bufnewfile *.sh 0r !~/dotfiles/src/vim/yxyheader.sh "sh" $user_name
+    autocmd bufnewfile *.py 0r !~/dotfiles/src/vim/yxyheader.sh "py" $user_name
+augroup END
+" }}}
 
 
 " ########################### FileType Settings ##################################
 " Use za to fold and unfold
-
 
 " VIM GENERAL SETTINGS ---------------------- {{{  
 augroup VIM
@@ -195,14 +209,6 @@ augroup VIM
     autocmd VimResized * wincmd =
 augroup END
 " }}}
-
-augroup HEADERS
-    autocmd!
-    " Add First document Line
-    autocmd bufnewfile *.vim 0r !~/dotfiles/src/vim/yxyheader.sh "vim" $user_name
-    autocmd bufnewfile *.sh 0r !~/dotfiles/src/vim/yxyheader.sh "sh" $user_name
-    autocmd bufnewfile *.py 0r !~/dotfiles/src/vim/yxyheader.sh "py" $user_name
-augroup END
 
 " Vimscript file settings ---------------------- {{{
 augroup filetype_vim
@@ -217,7 +223,6 @@ augroup filetype_vim
 augroup END
 " }}}
 
-
 " Shell file settings ---------------------- {{{
 augroup filetype_shell
     autocmd!
@@ -228,7 +233,6 @@ augroup filetype_shell
     " Add First document Line
 augroup END
 " }}}
-
 
 " C Files Settings ---------------------- {{{
 augroup filetype_c
@@ -286,7 +290,7 @@ augroup filetype_python
 augroup END
 " }}}
 
-" Scala Files Settings ---------------------- {{
+" Scala Files Settings ---------------------- {{{
 augroup filetype_scala
     " Preventing autocommand to run multiple times
     autocmd!
@@ -299,14 +303,11 @@ augroup filetype_scala
 augroup END
 " }}}
 
-"" Makefile --> allow tabs for rules
+
+" ########################### EXPERIMENTAL ##################################
+
+" Makefile --> allow tabs for rules
 "autocmd FileType make setlocal noexpandtab
-
-
-" for resetting the splitsVimResized
-
-" EXPERIMENTAL
-"
 
 function! Lint()
     let current_line = line('.')
