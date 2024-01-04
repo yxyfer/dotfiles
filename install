@@ -58,6 +58,35 @@ termi()
     end_message $STATUS "term profile"
 }
 
+install_python()
+{
+    STATUS=0
+    brew install python@3.11
+    end_message $STATUS "installing Python"
+}
+
+data_science()
+{
+    source ~/.zshrc
+    info_message "INST" "Installing Data Science Package"
+
+    STATUS=0
+    python3 -m pip install pandas
+    end_message $STATUS "installing Pandas"
+
+    STATUS=0
+    python3 -m pip install -U scikit-learn
+    end_message $STATUS "installing SciKit Learn"
+    
+    STATUS=0
+    python3 -m pip install notebook
+    end_message $STATUS "installing Jupyter Notebook"
+
+    
+    #end_message $STATUS "installing PyTorch"
+
+}
+
 vimi()
 {
     info_message "INST" "Installing Vim Config"
@@ -111,3 +140,12 @@ install_brew()
 {
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 }
+
+install_1password()
+{
+    info_message "INST" "Installing 1Password"
+    STATUS=0
+    brew install 1password-cli
+    end_message  $STATUS "installing 1Password - go to: https://developer.1password.com/docs/cli/get-started/#install to finish install"
+}
+
